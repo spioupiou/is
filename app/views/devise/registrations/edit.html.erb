@@ -10,6 +10,18 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
+    <%= f.input :first_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first_name" }%>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "last_name" }%>
+    <%= f.input :prefecture, as: :select, #TODO - find a way to drop down prefectures
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "prefecture" }%>
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
                 required: false,
