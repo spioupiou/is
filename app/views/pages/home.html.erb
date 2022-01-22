@@ -1,2 +1,11 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <h1>Home</h1>
+
+  <% if user_signed_in? %>
+    <p>I'm in</p>
+    <p>User email: <%= current_user.email %></p>
+    <%= link_to "Your profile", profile_path, class: "btn btn-danger"  %>
+  <% else %>
+    <p>I'm not in</p>
+  <% end %>
+</div>
