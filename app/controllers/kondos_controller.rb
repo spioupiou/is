@@ -1,0 +1,2 @@
+class KondosController < ApplicationController
+end
