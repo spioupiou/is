@@ -65,3 +65,5 @@ kondos = Kondo.all
   )
   bookings.save!
 end
+
+puts "Bookings Creation done!"
