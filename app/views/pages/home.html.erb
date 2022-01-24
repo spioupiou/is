@@ -4,7 +4,8 @@
   <% if user_signed_in? %>
     <p>I'm in</p>
     <p>User email: <%= current_user.email %></p>
-    <%# <%= link_to "Your profile", profile_path, class: "btn btn-danger"  %> %>
+    <%# <%= link_to "Your profile", profile_path, class: "btn btn-danger"  %>
+    <%= link_to "Kondos Index page", kondos_path %>
   <% else %>
     <p>I'm not in</p>
   <% end %>
