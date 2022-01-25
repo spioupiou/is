@@ -16,10 +16,20 @@
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "last_name" }%>
-            <%= f.input :prefecture, as: :select, #TODO - find a way to drop down prefectures
-                        required: false,
+            <%= f.input :prefecture, collection: ["Tokyo", "Ibaraki"],
+                        # required: false,
                         autofocus: true,
                         input_html: { autocomplete: "prefecture" }%>
+            <%# rails says it is unable to remove the blank option if required: true %>
+            <%# <%= f.input :gender, as: :radio_buttons, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :first %>
+            <%= f.input :role,
+                        label: "I would like to",
+                        as: :radio_buttons,
+                        collection: [["renter", "Rent Kondos"], ["provider", "Provide Kondo Services"]],
+                        label_method: :second,
+                        value_method: :first,
+                        required: true,
+                        input_html: { autocomplete: "role" } %>
             <%= f.input :email,
                         required: true,
                         autofocus: true,

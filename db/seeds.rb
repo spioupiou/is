@@ -3,39 +3,38 @@ puts "Destroying previous seeds"
 Booking.destroy_all
 Kondo.destroy_all
 User.destroy_all
-puts "previous seeds destroyed!"
+puts "Previous seeds destroyed!"
 
 # User
-
+def create_user(full_name, role)
+  User.create!(
+            first_name: full_name.split.first,
+            last_name: full_name.split.last,
+            # email: "#{role == 'renter' ? 'r' : 'p'}#{full_name.split.first.downcase}@email.com",
+            email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
+            password: "123456",
+            role: role
+)
+end
 puts "Creating Users"
-user1 = User.create!(
-            first_name: "Hiro",
-            last_name: "Takemura",
-            email: "hiro@email.com",
-            password: "123456"
-)
-user2 = User.create!(
-            first_name: "Cedrine",
-            last_name: "Monnet",
-            email: "cedrine@email.com",
-            password: "123456"
-)
-user3 = User.create!(
-            first_name: "Carl",
-            last_name: "Noval",
-            email: "carl@email.com",
-            password: "123456"
-)
-user4 = User.create!(
-            first_name: "Shante",
-            last_name: "Johnson",
-            email: "shante@email.com",
-            password: "123456"
-)
+# Hiro's users: renter as rhiro@email.com, provider as phiro@email.com
+user1 = create_user("Hiro Takemura", "provider")
+user2 = create_user("Hiro Takemura", "renter")
+
+# Cédrine users: renter as rcedrine@email.com, provider as pcedrine@email.com
+user3 = create_user("Cedrine Monnet", "provider")
+user4 = create_user("Cedrine Monnet", "renter")
+
+# Carl's users: renter as rcarl@email.com, provider as pcarl@email.com
+user5 = create_user("Carl Noval", "provider")
+user6 = create_user("Carl Noval", "renter")
+
+# Shante's users: renter as rshante@email.com, provider as pshante@email.com
+user7 = create_user("Shante Johnson", "provider")
+user8 = create_user("Shante Johnson", "renter")
 puts "User creation done!"
 
-# Some kondos
-
+# Some kondos for provider users
 puts "Creating kondos"
 
 20.times do
@@ -45,7 +44,7 @@ puts "Creating kondos"
               details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
               prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,
               price: ((rand(5..20)) * 1000),
-              user_id: [user1, user2, user3, user4].sample.id
+              user_id: [user1, user3, user5, user6].sample.id
               )
   kondos.save!
 end
