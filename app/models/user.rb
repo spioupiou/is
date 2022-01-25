@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :kondos
   has_many :bookings
+  validates :prefecture, inclusion: { in: "renter", "provider" }
 
   validates :first_name, :last_name, presence: true
   # validates :prefecture, inclusion: { in: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima
