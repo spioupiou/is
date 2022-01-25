@@ -4,7 +4,7 @@
       <% @bookings.each do |booking| %>
       <div>
         <% kondo = Kondo.find(booking.kondo_id) %>
-        <h4><%= link_to kondo.name, kondo_path(booking.kondo_id) %></h4>
+        <h4><%= link_to kondo.name, kondo_path(kondo) %></h4>
         <h5><%= booking.booked_date %></h5>
       </div>
       <% end %>
