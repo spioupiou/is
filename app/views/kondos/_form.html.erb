@@ -1,0 +1,8 @@
+<%= simple_form_for(kondo) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :summary %>
+  <%= f.input :details %>
+  <%= f.input :prefecture %>
+  <%= f.integer :price %>
+  <%= f.input :photo, as: :file %>
+<% end %>
