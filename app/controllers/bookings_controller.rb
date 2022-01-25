@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    booked_date = date_formating(params[:booking])
+    booked_date = DateTime.parse(date_params.to_s)
     @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: booked_date)
 
     if @booking.save
@@ -17,13 +17,7 @@ class BookingsController < ApplicationController
 
   private
 
-  def date_formating(hash)
-    DateTime.new(
-      hash["booked_date(1i)"].to_i,
-      hash["booked_date(2i)"].to_i,
-      hash["booked_date(3i)"].to_i,
-      hash["booked_date(4i)"].to_i,
-      hash["booked_date(5i)"].to_i
-    )
+  def date_params
+    params.require(:booking).permit(:booked_date)
   end
 end
