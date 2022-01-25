@@ -1,4 +1,8 @@
 class BookingsController < ApplicationController
+  def index
+    @bookings = Booking.where(user_id: current_user.id)
+  end
+
   def new
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.new
