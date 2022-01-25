@@ -5,7 +5,8 @@ class BookingsController < ApplicationController
   end
 
   def create
-    booked_date = DateTime.parse(date_params.to_s)
+    utc_date = date_params.to_s.to_time.utc
+    booked_date = DateTime.parse(utc_date.to_s)
     @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: booked_date)
 
     if @booking.save
