@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-6">
       <% @kondos.all.each do |kondo| %>
-      <div>
+       <div class="col-3">
         <h4><%= link_to kondo.name, kondo_path(kondo) %></h4>
         <h5><%= kondo.summary %></h5>
         <span><%= kondo.prefecture %></span>
@@ -10,6 +9,5 @@
         <span><%= kondo.price %></span>
       </div>
       <% end %>
-    </div>
   </div>
 </div>
