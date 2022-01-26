@@ -7,8 +7,9 @@ class User < ApplicationRecord
   has_many :kondos
   has_many :bookings
 
-  enum role: { provider: 'provider', renter: 'renter' }
-  # validates :role, inclusion: { in: ["renter", "provider"] }
+  # no need for validates :role, inclusion: { in: ["renter", "provider"] }
+  # cause enum already takes care of this validation too
+  enum role: { provider: 'provider', renter: 'renter' }  
 
   validates :first_name, :last_name, presence: true
   # validates :prefecture, inclusion: { in: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima

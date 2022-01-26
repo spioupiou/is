@@ -20,8 +20,6 @@
                         # required: false,
                         autofocus: true,
                         input_html: { autocomplete: "prefecture" }%>
-            <%# rails says it is unable to remove the blank option if required: true %>
-            <%# <%= f.input :gender, as: :radio_buttons, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :first %>
             <%= f.input :role,
                         label: "I would like to",
                         as: :radio_buttons,

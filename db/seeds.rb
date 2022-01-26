@@ -10,26 +10,25 @@ def create_user(full_name, role)
   User.create!(
             first_name: full_name.split.first,
             last_name: full_name.split.last,
-            # email: "#{role == 'renter' ? 'r' : 'p'}#{full_name.split.first.downcase}@email.com",
             email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
             password: "123456",
             role: role
 )
 end
 puts "Creating Users"
-# Hiro's users: renter as rhiro@email.com, provider as phiro@email.com
+# Hiro's users: provider as hiro@email.com, renter as rhiro@email.com
 user1 = create_user("Hiro Takemura", "provider")
 user2 = create_user("Hiro Takemura", "renter")
 
-# Cédrine users: renter as rcedrine@email.com, provider as pcedrine@email.com
+# Cédrine users: provider as cedrine@email.com, renter as rcedrine@email.com
 user3 = create_user("Cedrine Monnet", "provider")
 user4 = create_user("Cedrine Monnet", "renter")
 
-# Carl's users: renter as rcarl@email.com, provider as pcarl@email.com
+# Carl's users: provider as carl@email.com, renter as rcarl@email.com
 user5 = create_user("Carl Noval", "provider")
 user6 = create_user("Carl Noval", "renter")
 
-# Shante's users: renter as rshante@email.com, provider as pshante@email.com
+# Shante's users: provider as shante@email.com, renter as rshante@email.com
 user7 = create_user("Shante Johnson", "provider")
 user8 = create_user("Shante Johnson", "renter")
 puts "User creation done!"
@@ -44,7 +43,7 @@ puts "Creating kondos"
               details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
               prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,
               price: ((rand(5..20)) * 1000),
-              user_id: [user1, user3, user5, user6].sample.id
+              user_id: [user1, user3, user5, user7].sample.id
               )
   kondos.save!
 end
