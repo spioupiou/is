@@ -56,7 +56,7 @@ kondos = Kondo.all
 
 10.times do
   bookings = Booking.new(
-    user_id: [user1, user2, user3, user4].sample.id,
+    user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
     confirmed: false,
     booked_date: Time.now
