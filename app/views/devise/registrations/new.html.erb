@@ -16,8 +16,8 @@
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "last_name" }%>
-            <%= f.input :prefecture, collection: ["Tokyo", "Ibaraki"],
-                        # required: false,
+            <%= f.input :prefecture, collection: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi],
+                        required: true,
                         autofocus: true,
                         input_html: { autocomplete: "prefecture" }%>
             <%# rails says it is unable to remove the blank option if required: true %>
