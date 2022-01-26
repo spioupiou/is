@@ -1,14 +1,13 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-6">
-      <% @kondos.each do |kondo| %>
+      <% @bookings.each do |booking| %>
       <div>
+        <% kondo = Kondo.find(booking.kondo_id) %>
         <h4><%= link_to kondo.name, kondo_path(kondo) %></h4>
-        <h5><%= kondo.summary %></h5>
-        <span><%= kondo.prefecture %></span>
-        <span><%= kondo.user.first_name %></span>
-        <span><%= kondo.price %></span>
+        <h5><%= booking.booked_date %></h5>
       </div>
       <% end %>
+    </div>
   </div>
 </div>
