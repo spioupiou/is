@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <% @kondos.each do |kondo| %>
-      <div class="col-xl-3 col-md-6 col-sm-12">
+      <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
         <%= render "components/card", 
           name:  kondo.user.first_name,
           price: kondo.price,
