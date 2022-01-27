@@ -1,0 +1,33 @@
+#card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 24px;
+    height: 372px;
+    max-width: 280px;
+    padding: 24px;
+    margin: 8px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.404);
+    text-align: center;
+    img{
+        width: 100px;
+        height: auto;
+        padding: 8px;
+    }
+    p{
+        font-size: 14px;
+    }
+    #card-footer{
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+
+        h6{
+            color: $kondo
+        }
+
+        a{
+            text-decoration: none;
+        }
+    }
+}
