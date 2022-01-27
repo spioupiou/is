@@ -34,7 +34,7 @@ before_action :set_kondo, only: %i[show edit update destroy]
   def update
     @kondo.update(kondo_params)
     if @kondo.save
-      redirect_to path(@kondo), notice: 'Kondo was successfully updated.'
+      redirect_to kondo_path(@kondo), notice: 'Kondo was successfully updated.'
     else
       render :edit
     end
