@@ -2,7 +2,6 @@ class KondosController < ApplicationController
   before_action :set_kondo, only: %i[show edit update destroy]
 
   def index
-    @kondos = policy_scope(Kondo).order(created_at: :desc)
   end
 
   def show

@@ -1,0 +1,6 @@
+<%= form_tag kondos_path, method: "GET" do %>
+<div class="d-flex justify-content-center">
+  <%= text_field_tag :search_kondos, params[:search_kondos], class:"form-control", placeholder: "Where are you?" %>
+  <%= submit_tag "Discover", class: "btn btn-warning" %>
+</div>
+<% end %>

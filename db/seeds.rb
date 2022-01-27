@@ -12,7 +12,8 @@ def create_user(full_name, role)
             last_name: full_name.split.last,
             email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
             password: "123456",
-            role: role
+            role: role,
+            prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample
 )
 end
 puts "Creating Users"
@@ -58,7 +59,7 @@ kondos = Kondo.all
   bookings = Booking.new(
     user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
-    confirmed: false,
+    status: ["waiting", "confirmed", "declined", "completed"].sample,
     booked_date: Time.now
   )
   bookings.save!
