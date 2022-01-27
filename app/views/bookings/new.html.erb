@@ -1,6 +1,7 @@
 <div class="container">
   <%= simple_form_for([@kondo, @booking]) do |f| %>
-    <%= f.datetime_field :booked_date, min: Date.today + 3, as: :date, html5: true %>
+    <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false %>
     <%= f.submit %>
+    <%= f.error :booked_date %>
   <% end %>
 </div>
