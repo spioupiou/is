@@ -1,6 +1,6 @@
 class KondosController < ApplicationController
   def index
-    @kondos = Kondo.order(created_at: :desc)
+    @kondos = policy_scope(Kondo).order(created_at: :desc)
   end
 
   def show
