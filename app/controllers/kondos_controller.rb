@@ -1,5 +1,6 @@
 class KondosController < ApplicationController
 before_action :set_kondo, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     @kondos = Kondo.order(created_at: :desc)
