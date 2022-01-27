@@ -3,7 +3,6 @@ before_action :set_kondo, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @kondos = Kondo.order(created_at: :desc)
     unless params[:search_kondos] == ""
       @kondos = @kondos.where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
     else
@@ -12,6 +11,7 @@ before_action :set_kondo, only: %i[show edit update destroy]
   end
 
   def show
+    @kondo = Kondo.find(params[:id])
   end
 
   def new
@@ -25,7 +25,7 @@ before_action :set_kondo, only: %i[show edit update destroy]
     @kondo = Kondo.new(kondo_params)
 
     if @kondo.save
-      redirect_to @kondo, notice: 'Kondo was successfully created.'
+      redirect_to kondo_path(@kondo), notice: 'Kondo was successfully created.'
     else
       render :new
     end
@@ -34,7 +34,7 @@ before_action :set_kondo, only: %i[show edit update destroy]
   def update
     @kondo.update(kondo_params)
     if @kondo.save
-      redirect_to @kondo, notice: 'Kondo was successfully updated.'
+      redirect_to path(@kondo), notice: 'Kondo was successfully updated.'
     else
       render :edit
     end
