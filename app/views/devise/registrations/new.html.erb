@@ -20,6 +20,14 @@
                         required: true,
                         autofocus: true,
                         input_html: { autocomplete: "prefecture" }%>
+            <%= f.input :role,
+                        label: "I would like to",
+                        as: :radio_buttons,
+                        collection: [["renter", "Rent Kondos"], ["provider", "Provide Kondo Services"]],
+                        label_method: :second,
+                        value_method: :first,
+                        required: true,
+                        input_html: { autocomplete: "role" } %>
             <%= f.input :email,
                         required: true,
                         autofocus: true,

@@ -6,8 +6,11 @@ class User < ApplicationRecord
 
   has_many :kondos
   has_many :bookings
-
   has_one_attached :photo
+  
+  # no need for validates :role, inclusion: { in: ["renter", "provider"] }
+  # cause enum already takes care of this validation too
+  enum role: { provider: 'provider', renter: 'renter' }  
 
   validates :first_name, :last_name, presence: true
   # validates :prefecture,
