@@ -1,27 +1,22 @@
-<div class="card-category d-flex justify-content-center align-items-center" 
+<div class="card-category d-flex flex-column justify-content-center align-items-center" 
 style="height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path "https://res.cloudinary.com/djlvhfuba/image/upload/v1643110748/interior_ncfcmy.png", crop: :fill %>')">
   <h1 style="font-size: 3.5rem; font-weight: bolder; color: white;">Make Your Home a Better Place</h1>
+  <%= render "components/searchBar" %>
 </div>
 <div class="container">
   <h2>Interior Specialists near you</h2>
     <div class="row justify-content-center">
       <% @kondos.each do |kondo| %>
-        <div class="col-3">
-          <h4><%= link_to kondo.name, kondo_path(kondo) %></h4>
-          <h5><%= kondo.summary %></h5>
-          <span><%= kondo.prefecture %></span>
-          <span><%= kondo.user.first_name %></span>
-          <span><%= kondo.price %></span>
+        <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
+          <%= render "components/card", 
+            name:  kondo.user.first_name,
+            price: kondo.price,
+            summary: kondo.summary.split(" ").first(10).join(" "),
+            kondo: kondo.name,
+            prefecture: kondo.prefecture,
+            path: kondo_path(kondo)
+          %> 
         </div>
       <% end %>
     </div>
-
-  <% if user_signed_in? %>
-    <p>I'm in</p>
-    <p>User email: <%= current_user.email %></p>
-    <%# <%= link_to "Your profile", profile_path, class: "btn btn-danger"  %>
-    <%= link_to "Kondos Index page", kondos_path %>
-  <% else %>
-    <p>I'm not in</p>
-  <% end %>
-</div>
+  </div>
