@@ -12,3 +12,16 @@
     </div>
   </div>
 </div>
+<br><br><br>
+<%# Only provider sees this %>
+<div class="container">
+  <div class="row">
+    <% @kondo.bookings.each  do |booking| %>
+      <div class="col-4">
+        <p>Renter: <%= User.find(booking.user_id).first_name %></p>
+        <p>Status: <%= booking.status %></p>
+        <p>Booked Date: <%= booking.booked_date %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
