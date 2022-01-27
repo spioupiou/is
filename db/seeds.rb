@@ -58,7 +58,7 @@ kondos = Kondo.all
   bookings = Booking.new(
     user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
-    confirmed: false,
+    status: ["waiting", "confirmed", "declined", "completed"].sample,
     booked_date: Time.now
   )
   bookings.save!
