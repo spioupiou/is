@@ -1,7 +1,7 @@
 class KondosController < ApplicationController
   def index
     #Renter's Page
-    if current_user.role == "renter"
+    if current_user.renter?
       @kondos = Kondo.order(created_at: :desc)
 
       unless params[:search_kondos] == ""
@@ -12,7 +12,7 @@ class KondosController < ApplicationController
 
     end
     #Provider's Page
-    if current_user.role == "provider"
+    if current_user.provider?
       @kondos = Kondo.where(user_id: current_user.id)
     end
 
