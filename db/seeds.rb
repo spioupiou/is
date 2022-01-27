@@ -12,7 +12,8 @@ def create_user(full_name, role)
             last_name: full_name.split.last,
             email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
             password: "123456",
-            role: role
+            role: role,
+            prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample
 )
 end
 puts "Creating Users"
