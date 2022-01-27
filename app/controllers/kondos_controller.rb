@@ -1,4 +1,6 @@
 class KondosController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
   def index
     @kondos = Kondo.order(created_at: :desc)
     unless params[:search_kondos] == ""
