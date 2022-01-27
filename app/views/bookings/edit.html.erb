@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-6 col-md-6 col-sm-12">
+        <%= simple_form_for ([@kondo, @booking]) do |f| %>
+        <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'] %>
+        <%= f.submit %>
+        <% end %>
+    </div> 
+  </div>
+</div>

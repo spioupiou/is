@@ -7,22 +7,28 @@
         <span><%= @kondo.prefecture %></span>
         <span><%= @kondo.user.first_name %></span>
         <span><%= @kondo.price %></span>
-        <%= link_to "Book now", new_kondo_booking_path(@kondo.id), class:"btn btn-primary"%>
+        <%#Only renters can see this  %>
+        <% if current_user.renter? %>
+          <%= link_to "Book now", new_kondo_booking_path(@kondo.id), class:"btn btn-primary"%>
+        <% end %>
+        <%#----------------------------%>
       </div>
     </div>
   </div>
-</div>
 <%# Only provider sees this %>
-<% if current_user.provider?  %>
-  <div class="container">
-    <div class="row">
-      <% @kondo.bookings.each do |booking| %>
-        <div class="col-4">
-          <p>Renter: <%= User.find(booking.user_id).first_name %></p>
-          <p>Status: <%= booking.status %></p>
-          <p>Booked Date: <%= booking.booked_date %></p>
-        </div>
-      <% end %>
+  <h4>People currently booked this kondo</h4>
+  <% if current_user.provider?  %>
+    <div class="container">
+      <div class="row">
+        <% @kondo.bookings.each do |booking| %>
+          <div class="col-4">
+            <p>Renter: <%= User.find(booking.user_id).first_name %></p>
+            <p>Status: <%= booking.status %></p>
+            <%= link_to "edit status", edit_kondo_booking_path(@kondo, booking)%>
+            <p>Booked Date: <%= booking.booked_date %></p>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
