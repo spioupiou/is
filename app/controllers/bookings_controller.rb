@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @bookings = Booking.where(user_id: current_user.id)
   end
@@ -6,10 +8,16 @@ class BookingsController < ApplicationController
   def new
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.new
+    if current_user.renter?
+      authorize @booking
+    else
+    redirect_to root_path
+    end
   end
 
   def create
     @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date])
+    authorize @booking
 
     # NOTE: that booking status defaults to "waiting"
     if @booking.save
@@ -23,12 +31,14 @@ class BookingsController < ApplicationController
   def edit
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.find(params[:id])
+    authorize @booking
   end
 
   def update
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
+    authorize @booking
 
     redirect_to kondo_path(@kondo)
   end
