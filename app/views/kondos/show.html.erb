@@ -31,14 +31,18 @@
 <%# Only provider sees this %>
 <% if user_signed_in? && current_user.provider? %>
   <div class="container">
-    <h4>People currently booked this kondo</h4>
+    <h4>People currently booked this Kondo:</h4>
       <div class="row">
         <% @kondo.bookings.each do |booking| %>
-          <div class="col-4">
+          <div class="col-4 bg-white p-4 m-2">
             <p>Renter: <%= User.find(booking.user_id).first_name %></p>
-            <p>Status: <%= booking.status %></p>
-            <%= link_to "edit status", edit_kondo_booking_path(@kondo, booking)%>
             <p>Booked Date: <%= booking.booked_date %></p>
+            <%= simple_form_for ([@kondo, booking])  do |f| %>
+              <div class="d-flex align-items-center">
+                <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'], label: false %>
+                <%= f.submit "Update Status", class: "btn btn-success" %>
+              </div>
+             <% end %>
           </div>
         <% end %>
       </div>

@@ -29,7 +29,7 @@ class BookingsController < ApplicationController
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
-
+    
     redirect_to kondo_path(@kondo)
   end
 
