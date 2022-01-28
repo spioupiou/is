@@ -1,8 +1,8 @@
 <!-- Delete me later!-->
-<% if current_user.renter? %>
-  <h1> Kondo Index Page (Renter)</h1>
-<% else %>
+<% if user_signed_in? && current_user.provider? %>
   <h1> My Kondos (Provider) </h1>
+<% else  %>
+  <h1> Kondo Index Page</h1> <!-- For renters and unauthenticated users -->
 <% end %>
 <!-- Delete h1 later !-->
 <div class="container">
@@ -17,7 +17,7 @@
           kondo: kondo.name,
           prefecture: kondo.prefecture,
           path: kondo_path(kondo)
-        %> 
+        %>
         </div>
     <% end %>
   </div>
