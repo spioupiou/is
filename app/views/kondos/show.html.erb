@@ -3,7 +3,7 @@
     <div class="col-lg-6 col-sm-12 p-5 m-2" style="background: white;">
       <div class="row text-center">
         <div class="col-lg-4 col-sm-4">
-          <%= cl_image_tag current_user.user_photo, width: "75%",crop: :fill %>
+          <%= cl_image_tag @kondo.user.user_photo, width: "75%",crop: :fill %>
         </div>
         <div class="col-lg-6 col-sm-6 align-self-center">
           <h3><%= @kondo.user.first_name %> <%= @kondo.user.last_name %></h3>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <%#Only renters can see this  %>
-    <% if current_user.renter? %>
+    <% if user_signed_in? && current_user.renter? %>
      <div class="col-4 p-5 m-2" style="background: white;">
        <%# Book form here%>
       <%= link_to "Book now", new_kondo_booking_path(@kondo.id), class:"btn btn-primary"%>
@@ -27,9 +27,9 @@
    <%#----------------------------%>
   </div>
 </div>
-  
+
 <%# Only provider sees this %>
-<% if current_user.provider? %>
+<% if user_signed_in? && current_user.provider? %>
   <div class="container">
     <h4>People currently booked this kondo</h4>
       <div class="row">
