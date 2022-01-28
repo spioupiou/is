@@ -3,23 +3,19 @@ before_action :set_kondo, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-  
-    #Renter's Page
-    if current_user.renter?
-      @kondos = Kondo.order(created_at: :desc)
 
+    #Renter's Page
+    if current_user.nil?
+      @kondos = Kondo.all
+    elsif
+    @kondos = Kondo.order(created_at: :desc)
       unless params[:search_kondos] == ""
         @kondos = @kondos.where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
-      else
-        @kondos = Kondo.all
-      end
-      
     end
     #Provider's Page
-    if current_user.provider?
-      @kondos = Kondo.where(user_id: current_user.id)
+  else current_user.provider?
+    @kondos = Kondo.where(user_id: current_user.id)
     end
-
   end
 
   def show

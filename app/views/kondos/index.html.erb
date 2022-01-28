@@ -1,7 +1,9 @@
 <!-- Delete me later!-->
-<% if current_user.renter? %>
-  <h1> Kondo Index Page (Renter)</h1>
-<% else %>
+<% if current_user.nil? %>
+  <h1> Kondo Index Page (NO current_user)</h1>
+  <% elsif current_user.renter? %>
+    <h1> Kondo Index Page (Renter)</h1>
+<% elsif current_user.provider? %>
   <h1> My Kondos (Provider) </h1>
 <% end %>
 <!-- Delete h1 later !-->
@@ -17,7 +19,7 @@
           kondo: kondo.name,
           prefecture: kondo.prefecture,
           path: kondo_path(kondo)
-        %> 
+        %>
         </div>
     <% end %>
   </div>
