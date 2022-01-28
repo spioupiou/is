@@ -3,7 +3,7 @@ before_action :set_kondo, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-
+  
     #Renter's Page
     if current_user.renter?
       @kondos = Kondo.order(created_at: :desc)
