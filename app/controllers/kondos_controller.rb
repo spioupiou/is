@@ -1,12 +1,21 @@
 class KondosController < ApplicationController
-before_action :set_kondo, only: %i[show edit update destroy]
+  before_action :set_kondo, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    unless params[:search_kondos] == ""
-      @kondos = @kondos.where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
+    #For unauthenticated users and renters
+    if !user_signed_in? || current_user.renter?
+      @kondos = Kondo.order(created_at: :desc)
+
+      unless params[:search_kondos] == ""
+        @kondos = @kondos.where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
+      else
+        @kondos = Kondo.all
+      end
+
+    #Provider's Page
     else
-      @kondos = Kondo.all
+      @kondos = Kondo.where(user_id: current_user.id)
     end
   end
 

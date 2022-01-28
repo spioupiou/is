@@ -8,7 +8,8 @@ style="height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,
     <div class="row justify-content-center">
       <% @kondos.each do |kondo| %>
         <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
-          <%= render "components/card", 
+          <%= render "components/card",
+            photo: kondo.user.user_photo,
             name:  kondo.user.first_name,
             price: kondo.price,
             summary: kondo.summary.split(" ").first(10).join(" "),

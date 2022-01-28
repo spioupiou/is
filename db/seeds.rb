@@ -39,11 +39,12 @@ puts "Creating kondos"
 
 20.times do
   kondos = Kondo.new(
-              name: ["Interior Designer","House Keeping", "Home Destroyer", "Thief"].sample,
+              name: ["Interior Designer","House Keeping"].sample,
               summary: Faker::Lorem.sentence(word_count: 20, supplemental: true, random_words_to_add: 10),
               details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
               prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,
               price: ((rand(5..20)) * 1000),
+              service_duration: rand(1..7),
               user_id: [user1, user3, user5, user7].sample.id
               )
   kondos.save!
@@ -60,7 +61,7 @@ kondos = Kondo.all
     user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
     status: ["waiting", "confirmed", "declined", "completed"].sample,
-    booked_date: Time.now
+    booked_date: Time.now + 3.days
   )
   bookings.save!
 end
