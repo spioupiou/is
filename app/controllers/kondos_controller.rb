@@ -3,6 +3,7 @@ class KondosController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
+    #For unauthenticated users and renters
     if !user_signed_in? || current_user.renter?
       @kondos = Kondo.order(created_at: :desc)
 
