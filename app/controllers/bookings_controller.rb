@@ -19,4 +19,23 @@ class BookingsController < ApplicationController
       render :new
     end
   end
+
+  def edit
+    @kondo = Kondo.find(params[:kondo_id])
+    @booking = Booking.find(params[:id])
+  end
+
+  def update
+    @kondo = Kondo.find(params[:kondo_id])
+    @booking = Booking.find(params[:id])
+    @booking.update(booking_params)
+
+    redirect_to kondo_path(@kondo)
+  end
+
+  private
+
+  def booking_params
+    params.require(:booking).permit(:booked_date, :status)
+  end
 end
