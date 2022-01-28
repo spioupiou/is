@@ -39,7 +39,7 @@ puts "Creating kondos"
 
 20.times do
   kondos = Kondo.new(
-              name: ["Interior Designer","House Keeping", "Home Destroyer", "Thief"].sample,
+              name: ["Interior Designer","House Keeping"].sample,
               summary: Faker::Lorem.sentence(word_count: 20, supplemental: true, random_words_to_add: 10),
               details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
               prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,

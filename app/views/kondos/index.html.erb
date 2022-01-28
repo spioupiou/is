@@ -1,5 +1,9 @@
 <!-- Delete me later!-->
-<h1> Kondo Index Page </h1>
+<% if current_user.renter? %>
+  <h1> Kondo Index Page (Renter)</h1>
+<% else %>
+  <h1> My Kondos (Provider) </h1>
+<% end %>
 <!-- Delete h1 later !-->
 <div class="container">
   <div class="row">
