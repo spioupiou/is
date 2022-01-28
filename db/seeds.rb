@@ -44,6 +44,7 @@ puts "Creating kondos"
               details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
               prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,
               price: ((rand(5..20)) * 1000),
+              service_duration: rand(1..7),
               user_id: [user1, user3, user5, user7].sample.id
               )
   kondos.save!
