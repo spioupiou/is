@@ -1,11 +1,10 @@
 class KondosController < ApplicationController
-before_action :set_kondo, only: %i[show edit update destroy]
+  before_action :set_kondo, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-  
-    #Renter's Page
-    if current_user.renter?
+    #For unauthenticated users and renters
+    if !user_signed_in? || current_user.renter?
       @kondos = Kondo.order(created_at: :desc)
 
       unless params[:search_kondos] == ""
@@ -13,13 +12,11 @@ before_action :set_kondo, only: %i[show edit update destroy]
       else
         @kondos = Kondo.all
       end
-      
-    end
+
     #Provider's Page
-    if current_user.provider?
+    else
       @kondos = Kondo.where(user_id: current_user.id)
     end
-
   end
 
   def show
