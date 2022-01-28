@@ -21,6 +21,7 @@ class KondosController < ApplicationController
 
   def show
     @kondo = Kondo.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
