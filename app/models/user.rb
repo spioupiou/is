@@ -19,4 +19,15 @@ class User < ApplicationRecord
                                 Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata
                                 Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi
                                 Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi], allow_nil: false }
+
+  def user_photo
+    unless self.photo.attached?
+      "https://res.cloudinary.com/djlvhfuba/image/upload/v1643138540/development/user_icon_hqeugo.png"
+    else
+       self.photo.key
+    end
+  end
+
 end
+
+
