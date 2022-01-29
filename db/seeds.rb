@@ -34,15 +34,26 @@ user7 = create_user("Shante Johnson", "provider")
 user8 = create_user("Shante Johnson", "renter")
 puts "User creation done!"
 
+#Creating new users
+# Kondo names, summary, and details
+ name_summary_details =
+   [["Commerical Interior Designer ", "Designing interior spaces to be functional to conduct business efficiently."," A professional who can create and direct the construction of these commercial spaces. Guides clients to select materials, colors, and furnishings that align with the company’s brand and aesthetic. Arranges the layout of interior walls and the use of spaces. Finally, directs and coordinates the work among the professionals working on the construction project."],
+  ["Space Planning Interior Designer", "Space planning is everything! Find your home design nirvana today.", "Space planning is a fundamental element of the interior design process. It starts with an in-depth analysis of how the space is to be used. The designer then draws up a plan that defines the zones of the space and the activities that will take place in those zones. The space plan will also define the circulation patterns that show how people will move through the space.  The plan is finished by adding details of all the furniture, equipment and hardware placement."],
+    ["Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
+    ["Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
+   ["Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."]]
+
+
 # Some kondos for provider users
 puts "Creating kondos"
 
-20.times do
+
+10.times do
+  services = name_summary_details.sample
   kondos = Kondo.new(
-              name: ["Interior Designer","House Keeping"].sample,
-              summary: Faker::Lorem.sentence(word_count: 20, supplemental: true, random_words_to_add: 10),
-              details: Faker::Lorem.sentence(word_count: 50, supplemental: true, random_words_to_add: 50),
-              prefecture: ["Tokyo", "Kanagawa", "Chiba", "Saitama", "Ibaraki", "Tochigi", "Yamanashi"].sample,
+              name: services[0],
+              summary: services[1],
+              details: services[2],
               price: ((rand(5..20)) * 1000),
               service_duration: rand(1..7),
               user_id: [user1, user3, user5, user7].sample.id
@@ -56,7 +67,7 @@ puts "Creating bookings"
 
 kondos = Kondo.all
 
-10.times do
+20.times do
   bookings = Booking.new(
     user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
