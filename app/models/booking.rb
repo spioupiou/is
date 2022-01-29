@@ -8,6 +8,14 @@ class Booking < ApplicationRecord
   validate :booked_date_three_days_prior
   validate :booked_date_too_far
 
+  def booked_status_color
+    if self.completed? then "#5454E8"
+    elsif self.confirmed? then "#33AE10"
+    elsif self.declined? then "#CC0001"
+    else "#AEAEAE"
+    end
+  end
+
   private
 
   def booked_date_is_a_date
@@ -31,4 +39,5 @@ class Booking < ApplicationRecord
       errors.add(:booked_date, 'cannot book too far in advance')
     end
   end
+
 end
