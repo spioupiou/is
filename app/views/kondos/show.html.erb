@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-around">
-    <div class="col-lg-6 col-sm-12 p-5 m-2" style="background: white;">
+    <div class="col-lg-6 col-sm-12 p-4 m-2" style="background: white;">
       <div class="row text-center">
         <div class="col-lg-4 col-sm-4">
           <%= cl_image_tag @kondo.user.user_photo, width: "75%",crop: :fill %>
@@ -19,9 +19,17 @@
     </div>
     <%#Only renters can see this  %>
     <% if user_signed_in? && current_user.renter? %>
-     <div class="col-4 p-5 m-2" style="background: white;">
+     <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
        <%# Book form here%>
-      <%= link_to "Book now", new_kondo_booking_path(@kondo.id), class:"btn btn-primary"%>
+       <h3>Make a Reservation</h3><br>
+       <h5><strong>￥<%= @kondo.price %></strong> <small>/ session</small></h5>
+       <%= simple_form_for([@kondo, @booking]) do |f| %>
+        <div class="d-flex flex-column">
+          <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false, class: "p-1 my-2" %>
+          <%= f.submit "Book now", class:"btn btn-primary my-2" %>
+          <%= f.error :booked_date, style: "color:red" %>
+        </div>
+       <% end %>
     <% end %>
      </div>
    <%#----------------------------%>
@@ -31,14 +39,18 @@
 <%# Only provider sees this %>
 <% if user_signed_in? && current_user.provider? %>
   <div class="container">
-    <h4>People currently booked this kondo</h4>
+    <h4>People currently booked this Kondo:</h4>
       <div class="row">
         <% @kondo.bookings.each do |booking| %>
-          <div class="col-4">
+          <div class="col-4 bg-white p-4 m-2">
             <p>Renter: <%= User.find(booking.user_id).first_name %></p>
-            <p>Status: <%= booking.status %></p>
-            <%= link_to "edit status", edit_kondo_booking_path(@kondo, booking)%>
             <p>Booked Date: <%= booking.booked_date %></p>
+            <%= simple_form_for ([@kondo, booking])  do |f| %>
+              <div class="d-flex align-items-center">
+                <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'], label: false %>
+                <%= f.submit "Update Status", class: "btn btn-success" %>
+              </div>
+             <% end %>
           </div>
         <% end %>
       </div>
