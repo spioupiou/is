@@ -3,9 +3,9 @@
     <div class="col-lg-6 col-sm-12 p-4 m-2" style="background: white;">
       <div class="row text-center">
         <div class="col-lg-4 col-sm-4">
-          <%= cl_image_tag @kondo.user.user_photo, width: "75%" %>
+          <%= cl_image_tag @kondo.user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"%>
         </div>
-        <div class="col-lg-6 col-sm-6 align-self-center">
+        <div class="col-lg-8 col-sm-6 align-self-center">
           <h3><%= @kondo.user.first_name %> <%= @kondo.user.last_name %></h3>
           <h5><%= @kondo.name %></h5>
         </div>
@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <%#Only renters can see this  %>
-    <% if user_signed_in? && current_user.renter? %>
+    <%# Unauthenticated Users or Renters can view a kondo and see book button %>
+    <% if !user_signed_in? || current_user.renter? %>
      <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
        <%# Book form here%>
        <h3>Make a Reservation</h3><br>
