@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <%#Only renters can see this  %>
-    <% if user_signed_in? && current_user.renter? %>
+    <%# Unauthenticated Users or Renters can view a kondo and see book button %>
+    <% if !user_signed_in? || current_user.renter? %>
      <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
        <%# Book form here%>
        <h3>Make a Reservation</h3><br>
