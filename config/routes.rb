@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # get '/profile', to: 'pages#profile', as: :profile
   resources :kondos do
-    resources :bookings
+    resources :bookings, :except => [:index]
   end
+
+  get "/bookings", to: "bookings#index"
 end

@@ -1,5 +1,5 @@
 <div class="card-category d-flex flex-column justify-content-center align-items-center" 
-style="height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path "https://res.cloudinary.com/djlvhfuba/image/upload/v1643110748/development/interior_ncfcmy.png", crop: :fill %>')">
+style="height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path ENV["HOME_BACKGROUND"], crop: :fill %>')">
   <h1 id="banner-text">Make Your <span style="color:#FF773D">Home</span> a Better Place</h1>
   <%= render "components/searchBar" %>
 </div>

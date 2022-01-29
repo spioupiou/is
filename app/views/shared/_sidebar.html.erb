@@ -1,0 +1,20 @@
+<div id="mySidenav" class="sidenav">
+  <a class="closebtn"><i class="fas fa-times"></i></a>
+
+  
+  <% if current_user != nil %>
+    <%= link_to "Profile", "#" %>
+      <% if current_user.renter? %>
+        <%= link_to "My Bookings", "#" %>
+      <% else %>
+        <%= link_to "My Kondos", "#" %>
+      <% end %>
+    <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Log in", new_user_session_path %>
+    <%= link_to "Sign up", new_user_registration_path %>
+  <% end %>
+</div>
