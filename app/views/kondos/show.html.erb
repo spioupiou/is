@@ -3,7 +3,7 @@
     <div class="col-lg-6 col-sm-12 p-4 m-2" style="background: white;">
       <div class="row text-center">
         <div class="col-lg-4 col-sm-4">
-          <%= cl_image_tag @kondo.user.user_photo, width: "75%",crop: :fill %>
+          <%= cl_image_tag @kondo.user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"%>
         </div>
         <div class="col-lg-6 col-sm-6 align-self-center">
           <h3><%= @kondo.user.first_name %> <%= @kondo.user.last_name %></h3>
