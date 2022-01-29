@@ -9,23 +9,23 @@ puts "Previous seeds destroyed!"
 
 # Pics collections for Users
 female_pics = [
-  'app/assets/images/female1.jpg',
-  'app/assets/images/female2.jpg',
-  'app/assets/images/female3.jpg',
-  'app/assets/images/female4.jpg',
-  'app/assets/images/female5.jpg'
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426257/development/female1_qxmdm6.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426257/development/female2_nxng2s.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426256/development/female3_gdh15y.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426255/development/female4_o8mpsf.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426254/development/female5_p78d7p.jpg'
 ]
 
 male_pics = [
-  'app/assets/images/male1.jpg',
-  'app/assets/images/male2.jpg',
-  'app/assets/images/male3.jpg',
-  'app/assets/images/male4.jpg',
-  'app/assets/images/male5.jpg'
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426256/development/male1_udy20m.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426254/development/male2_jijizi.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426254/development/male3_iberut.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426254/development/male4_htj2ua.jpg',
+  'https://res.cloudinary.com/djlvhfuba/image/upload/v1643426255/development/male5_ekvwyw.jpg'
 ]
 
 def create_user(full_name, role)
-  user = User.create!(
+  User.create!(
     first_name: full_name.split.first,
     last_name: full_name.split.last,
     email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
@@ -47,7 +47,7 @@ user4 = create_user("Carl Noval", "renter")
 
 male_users = [user1, user2, user3, user4]
 male_users.each do |user|
-  user.photo.attach(io: File.open(Rails.root.join(male_pics.sample)), filename: 'user.jpg')
+  user.photo.attach(io: URI.open(male_pics.sample), filename: 'user.jpg')
   user.save!
 end
 
@@ -61,7 +61,7 @@ user8 = create_user("Shante Johnson", "renter")
 
 female_users = [user5, user6, user7, user8]
 female_users.each do |user|
-  user.photo.attach(io: File.open(Rails.root.join(female_pics.sample)), filename: 'user.jpg')
+  user.photo.attach(io: URI.open(female_pics.sample), filename: 'user.jpg')
   user.save!
 end
 
