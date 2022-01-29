@@ -24,18 +24,13 @@ require("channels")
 
 // External imports
 import "bootstrap";
-import { opener, menu } from "../components/sidebar" 
+import { sideNav } from "../components/sidebar" 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
 document.addEventListener('turbolinks:load', () => {
+  sideNav();
+});
   // Call your functions here, e.g:
   // initSelect2();
-  opener.addEventListener("click", (e) => {
-    menu.style.width = "250px"
-  })
 
-  menu.addEventListener("click", (e) => {
-    e.currentTarget.style.width = "0"
-  })
-});
