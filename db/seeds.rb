@@ -39,8 +39,8 @@ puts "Creating Users"
 
 # Hiro's users: provider as hiro@email.com, renter as rhiro@email.com
 user1 = create_user("Hiro Takemura", "provider")
-# user1.photo.attach("https://res.cloudinary.com/djlvhfuba/image/upload/v1643426256/development/male1_udy20m.jpg")
 user2 = create_user("Hiro Takemura", "renter")
+
 # Carl's users: provider as carl@email.com, renter as rcarl@email.com
 user3 = create_user("Carl Noval", "provider")
 user4 = create_user("Carl Noval", "renter")
