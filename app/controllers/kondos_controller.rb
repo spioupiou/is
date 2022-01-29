@@ -21,17 +21,21 @@ class KondosController < ApplicationController
 
   def show
     @kondo = Kondo.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
     @kondo = Kondo.new
+    authorize @kondo
   end
 
   def edit
+    authorize @kondo
   end
 
   def create
     @kondo = Kondo.new(kondo_params)
+    authorize @kondo
 
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully created.'
@@ -41,6 +45,7 @@ class KondosController < ApplicationController
   end
 
   def update
+    authorize @kondo
     @kondo.update(kondo_params)
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully updated.'
@@ -50,6 +55,7 @@ class KondosController < ApplicationController
   end
 
   def destroy
+    authorize @kondo
     @kondo.destroy
     redirect_to kondos_path, notice: 'Kondo was successfully destroyed.'
   end
