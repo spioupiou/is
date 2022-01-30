@@ -1,6 +1,6 @@
 <div class="home-banner d-flex flex-column justify-content-center align-items-center">
-  <%# argument is the id of the img from cloudinary's development folder, does not matter if from dev or prod directory %>
-  <%= cl_image_tag("interior_ncfcmy_vjp2mu")%>
+  <%# actual file path: app/assets/images/home_banner.png %>
+  <%= image_tag("/assets/home_banner") %>
   <h1 id="banner-text">Make Your <span style="color:#FF773D">Home</span> a Better Place</h1>
   <%= render "components/searchBar" %>
 </div>
