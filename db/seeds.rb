@@ -87,6 +87,7 @@ puts "Creating kondos"
               name: services[0],
               summary: services[1],
               details: services[2],
+              prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
               price: ((rand(5..20)) * 1000),
               service_duration: rand(1..7),
               user_id: [user1, user3, user5, user7].sample.id
