@@ -1,4 +1,6 @@
 .home-banner {
+  // prevent horizontal scrollign
+  overflow: hidden;
   position: relative;
   height: 100vh;
   // next line was from: https://stackoverflow.com/a/23935891/6728463
