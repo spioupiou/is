@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :kondo
+  has_one :review # if booking.review.nil? then show the link to leave a review
 
   enum status: { waiting: 'waiting', confirmed: 'confirmed', declined: 'declined', completed: 'completed' }
   validates :booked_date, presence: true
