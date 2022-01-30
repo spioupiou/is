@@ -1,6 +1,8 @@
 <div class="home-banner d-flex flex-column justify-content-center align-items-center">
   <%# actual file path: app/assets/images/home_banner.png %>
-  <%= image_tag("/assets/home_banner") %>
+  <%# read medium link as to why image_tag has to use the specific format below %>
+  <%# NOTE: https://medium.com/@yoanante/assets-webpacker-and-rails-6-why-your-images-and-css-arent-showing-up-heroku-vs-development-de85047148de %>
+  <%= image_tag(asset_path("/assets/home_banner.png")) %>
   <h1 id="banner-text">Make Your <span style="color:#FF773D">Home</span> a Better Place</h1>
   <%= render "components/searchBar" %>
 </div>
