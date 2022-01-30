@@ -1,6 +1,9 @@
-<div id="card"  style="height: 245px;">
+<div id="card"  style="height: 245px; max-width: 245px;">
   <div id="card-body">
-    <i class="fas fa-book-open"></i>
+    <div style="postion:relative">
+      <div id="notification"><%= book %></div>
+      <i class="fas fa-book-open"></i>
+    </div>
     <h6><strong><%= kondo %></strong></h6>
     <p><%= prefecture %></p>
     <p><%= summary %></p>

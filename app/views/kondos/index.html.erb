@@ -7,6 +7,7 @@
     <% @kondos.each do |kondo| %>
       <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
         <%= render "components/cardProvider",
+          book: kondo.bookings.count,
           price: kondo.price,
           summary: kondo.summary.split(" ").first(10).join(" "),
           kondo: kondo.name,
