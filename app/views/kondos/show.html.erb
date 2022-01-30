@@ -27,20 +27,20 @@
     </div>
     <%# Unauthenticated Users or Renters can view a kondo and see book button %>
     <% if !user_signed_in? || current_user.renter? %>
-     <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
-       <%# Book form here%>
-       <h3>Make a Reservation</h3><br>
-       <h5><strong>￥<%= @kondo.price %></strong> <small>/ session</small></h5>
-       <%= simple_form_for([@kondo, @booking]) do |f| %>
-        <div class="d-flex flex-column">
-          <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false, class: "p-1 my-2" %>
-          <%= f.submit "Book now", class:"btn btn-primary my-2" %>
-          <%= f.error :booked_date, style: "color:red" %>
-        </div>
-       <% end %>
-    <% end %>
-     </div>
-   <%#----------------------------%>
+      <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
+        <%# Book form here%>
+        <h3>Make a Reservation</h3><br>
+        <h5><strong>￥<%= @kondo.price %></strong> <small>/ session</small></h5>
+        <%= simple_form_for([@kondo, @booking]) do |f| %>
+          <div class="d-flex flex-column">
+            <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false, class: "p-1 my-2" %>
+            <%= f.submit "Book now", class:"btn btn-primary my-2" %>
+            <%= f.error :booked_date, style: "color:red" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <%#----------------------------%>
   </div>
 </div>
 
@@ -58,7 +58,7 @@
                 <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'], label: false %>
                 <%= f.submit "Update Status", class: "btn btn-success" %>
               </div>
-             <% end %>
+            <% end %>
           </div>
         <% end %>
       </div>

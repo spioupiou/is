@@ -1,16 +1,12 @@
 class BookingsController < ApplicationController
 
   def index
-    @bookings = Booking.where(user_id: current_user.id)
+    @bookings = policy_scope(Booking).where(user_id: current_user.id).order(booked_date: :desc)
   end
-
-  # def new
-  #   @kondo = Kondo.find(params[:kondo_id])
-  #   @booking = Booking.new
-  # end
 
   def create
     @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date])
+    authorize @booking
 
     # NOTE: that booking status defaults to "waiting"
     if @booking.save
@@ -30,7 +26,9 @@ class BookingsController < ApplicationController
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
-    
+
+    authorize @booking
+
     redirect_to kondo_path(@kondo)
   end
 
