@@ -5,23 +5,24 @@ class KondosController < ApplicationController
   def index
     #For unauthenticated users and renters
     if !user_signed_in? || current_user.renter?
-      @kondos = Kondo.order(created_at: :desc)
+      @kondos = policy_scope(Kondo).order(created_at: :desc)
 
       unless params[:search_kondos] == ""
-        @kondos = @kondos.where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
+        @kondos = policy_scope(Kondo).where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
       else
-        @kondos = Kondo.all
+        @kondos = policy_scope(Kondo).all
       end
 
     #Provider's Page
     else
-      @kondos = Kondo.where(user_id: current_user.id)
+      @kondos = policy_scope(Kondo).where(user_id: current_user.id)
     end
   end
 
   def show
     @kondo = Kondo.find(params[:id])
     @booking = Booking.new
+    authorize @kondo
   end
 
   def new
@@ -34,9 +35,11 @@ class KondosController < ApplicationController
   end
 
   def create
+    authorize @kondo
+
     @kondo = Kondo.new(kondo_params)
     @kondo.user_id = current_user.id
-    authorize @kondo
+
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully created.'
     else
@@ -46,6 +49,7 @@ class KondosController < ApplicationController
 
   def update
     authorize @kondo
+
     @kondo.update(kondo_params)
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully updated.'
@@ -56,6 +60,7 @@ class KondosController < ApplicationController
 
   def destroy
     authorize @kondo
+
     @kondo.destroy
     redirect_to kondos_path, notice: 'Kondo was successfully destroyed.'
   end
