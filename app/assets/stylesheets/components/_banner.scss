@@ -1,18 +1,15 @@
 .home-banner {
-  overflow: hidden;
   position: relative;
-  width: 100%;
   height: 100vh;
   // next line was from: https://stackoverflow.com/a/23935891/6728463
   // truth is we need more lines to make this work with other browsers but we don't care about it right now
   background: -webkit-linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
 
   img {
-    pointer-events: none;
-    object-fit: contain;
     position: absolute;
-    min-width: 100%;
-    min-height: 100%;
+    // if media width is greater than 1520px then there will be rey paddings on both sides
+    width: 1520px;
+    height: 100%;
     z-index: -1;
   }
 
