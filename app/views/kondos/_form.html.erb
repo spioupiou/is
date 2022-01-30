@@ -1,8 +1,10 @@
 <%= simple_form_for(kondo) do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, collection: ["Commercial Interior Designer", "Space Planning Interior Designer", "Minimalist Interior Designer",
+  "Professional Housekeeper", "Industrial Housekeeping"] %>
+  <%= f.input :service_duration %>
   <%= f.input :summary %>
   <%= f.input :details %>
   <%= f.input :prefecture, collection: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi] %>
-  <%= f.integer :price %>
-  <%= f.input :photo, as: :file %>
+  <%= f.input :price %>
+  <%= f.submit "Create Kondo", class: "btn btn-primary" %>
 <% end %>

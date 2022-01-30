@@ -2,6 +2,7 @@
 <div class="container">
   <% if user_signed_in? && current_user.provider? %>
     <h2> My Kondos <small>(<%= @kondos.count %>)</small></h2>
+    <%= link_to "Add new Kondo", new_kondo_path, class: "btn btn-warning"  %>
   <% else  %>
     <h2> Find your kondos</h2> <!-- For renters and unauthenticated users -->
   <% end %>
