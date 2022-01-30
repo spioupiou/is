@@ -35,8 +35,8 @@ class KondosController < ApplicationController
 
   def create
     @kondo = Kondo.new(kondo_params)
+    @kondo.user_id = current_user.id
     authorize @kondo
-
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully created.'
     else
