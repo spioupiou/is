@@ -15,6 +15,14 @@
           <h4>Details</h4>
           <p><%= @kondo.details %></p>
         </div>
+        <%# Only provider sees this %>
+        <% if user_signed_in? && current_user.provider? %>
+          <div class="col-12 d-flex justify-content-between">
+            <%= link_to "Edit", edit_kondo_path(@kondo), style: "color: green" %>
+            <%= link_to "Delete", kondo_path(@kondo), method: :delete, data: { confirm: "Are you sure?" }, style: "color: red" %>
+          </div>
+        <% end %>
+        <%#-------------------------%>
       </div>
     </div>
     <%# Unauthenticated Users or Renters can view a kondo and see book button %>
