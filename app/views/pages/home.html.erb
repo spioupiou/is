@@ -1,7 +1,8 @@
 <div class="home-banner d-flex flex-column justify-content-center align-items-center">
   <%# actual file path: app/assets/images/home_banner.png %>
-  <%# read medium link as to why image_tag has to use the specific format below %>
-  <%# NOTE: https://medium.com/@yoanante/assets-webpacker-and-rails-6-why-your-images-and-css-arent-showing-up-heroku-vs-development-de85047148de %>
+  <%# next two links were the combined solution to make image_tag line work in prod %>
+  <%# https://medium.com/@yoanante/assets-webpacker-and-rails-6-why-your-images-and-css-arent-showing-up-heroku-vs-development-de85047148de %>
+  <%# https://stackoverflow.com/a/28297444/6728463 %>
   <%= image_tag(asset_path("/assets/home_banner.png")) %>
   <h1 id="banner-text">Make Your <span style="color:#FF773D">Home</span> a Better Place</h1>
   <%= render "components/searchBar" %>
