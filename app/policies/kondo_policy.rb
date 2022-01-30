@@ -3,17 +3,21 @@ class KondoPolicy < ApplicationPolicy
     def resolve
       scope.all
     end
+  end
 
-    def create?
-      current_user.provider?
-    end
+  def show?
+    true
+  end
 
-    def update?
-      current_user.id == kondo.user_id
-    end
+  def create?
+    user.provider?
+  end
 
-    def destroy?
-      current_user.id == kondo.user_id
-    end
+  def update?
+    record.user == user
+  end
+
+  def destroy?
+    record.user == user
   end
 end
