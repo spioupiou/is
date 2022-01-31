@@ -3,7 +3,7 @@ class KondosController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    #For unauthenticated users and renters
+    # For unauthenticated users and renters
     if !user_signed_in? || current_user.renter?
       @kondos = policy_scope(Kondo).order(created_at: :desc)
 
@@ -13,7 +13,7 @@ class KondosController < ApplicationController
         @kondos = policy_scope(Kondo).all
       end
 
-    #Provider's Page
+    # Provider's Page
     else
       @kondos = policy_scope(Kondo).where(user_id: current_user.id)
     end
@@ -35,10 +35,10 @@ class KondosController < ApplicationController
   end
 
   def create
-    authorize @kondo
-
     @kondo = Kondo.new(kondo_params)
     @kondo.user_id = current_user.id
+
+    authorize @kondo
 
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully created.'
@@ -51,6 +51,7 @@ class KondosController < ApplicationController
     authorize @kondo
 
     @kondo.update(kondo_params)
+
     if @kondo.save
       redirect_to kondo_path(@kondo), notice: 'Kondo was successfully updated.'
     else
