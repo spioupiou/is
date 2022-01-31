@@ -2,6 +2,7 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = policy_scope(Booking).where(user_id: current_user.id).order(booked_date: :desc)
+    user_not_authorized if current_user.provider?
   end
 
   def create
