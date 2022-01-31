@@ -3,6 +3,7 @@
 
   
   <% if current_user != nil %>
+     <%= cl_image_tag current_user.user_photo %>
     <%= link_to "Profile", "#" %>
       <% if current_user.renter? %>
         <%= link_to "My Bookings", bookings_path %>
