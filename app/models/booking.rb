@@ -3,6 +3,9 @@ class Booking < ApplicationRecord
   belongs_to :kondo
   has_one :review # if booking.review.nil? then show the link to leave a review
 
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
   enum status: { waiting: 'waiting', confirmed: 'confirmed', declined: 'declined', completed: 'completed' }
   validates :booked_date, presence: true
   validate :booked_date_is_a_date
