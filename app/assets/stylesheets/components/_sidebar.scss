@@ -11,18 +11,6 @@
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s;
     white-space: nowrap;
-
-    img{
-      display: block;
-      margin-left: 87.5px;
-      margin-right: 87.5px;
-      border-radius: 50%;
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      margin-bottom: 1em;
-      border: 2px solid $kondo;
-    }
   }
   
   /* The navigation menu links */
@@ -48,14 +36,6 @@
     font-size: 36px;
     margin-left: 50px;
     pointer-events: stroke;
-  }
-  
-  .fa-bars{
-    pointer-events: fill;
-    transition: 0.2s;
-    &:hover{
-      color: $kondo;
-    }
   }
 
   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
