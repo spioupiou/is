@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   # get '/profile', to: 'pages#profile', as: :profile
-  resources :profile
+  resources :profile, :except => [:index, :destroy]
   resources :kondos do
     resources :bookings, :except => [:index]
   end
