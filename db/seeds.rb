@@ -89,7 +89,7 @@ puts "Creating kondos"
     name: services[0],
     summary: services[1],
     details: services[2],
-    prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
+    prefecture: %w[Chiba Kyoto Osaka Tokyo].sample,
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
     user_id: [user1, user3, user5, user7].sample.id
@@ -109,12 +109,15 @@ kondos = Kondo.all
     user_id: [user2, user4, user6, user8].sample.id,
     kondo_id: kondos.sample.id,
     status: ["waiting", "confirmed", "declined", "completed"].sample,
-    booked_date: Time.now + 3.days
+    booked_date: Time.now + 3.days,
+    address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Kanda", "Nakano", "Kichijoji"].sample
   )
   bookings.save!
 end
 
 puts "Bookings Creation done!"
+
+puts "Creating reviews"
 
 bookings = Booking.all
 
@@ -146,3 +149,5 @@ end
     user_id: [user1, user3, user5, user7].sample.id # only providers
   )
 end
+
+puts "Reviews Creation done!"
