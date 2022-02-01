@@ -1,5 +1,16 @@
 <div class="container">
   <h3>My Bookings</h3>
+  <div class="row"> 
+    <div class="col-xl-8 col-md-10 col-sm-12">
+      <div class="d-flex justify-content-around py-5" id="booking-index-nav">
+        <%= link_to "All", bookings_path(user_id: current_user.id) %>
+        <%= link_to "Waiting", bookings_path(status: "waiting") %>
+        <%= link_to "Confirmed", bookings_path(status: "confirmed") %>
+        <%= link_to "Declined", bookings_path(status: "declined") %>
+        <%= link_to "Completed", bookings_path(status: "completed") %>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <% @bookings.each do |booking| %>
     <div class="col-lg-6">
