@@ -4,7 +4,7 @@
   <% end %>
   <div id="open-nav">
     <% unless current_user.nil? %>
-     <%= cl_image_tag current_user.user_photo, style:"border: 2px solid rgba(0,0,0,0.6);" %>
+     <%= cl_image_tag current_user.user_photo %>
     <% else %>
       <%= image_tag "https://res.cloudinary.com/djlvhfuba/image/upload/v1643138540/development/user_icon_hqeugo.png", style: "opacity: 0.6" %>
     <% end %>
