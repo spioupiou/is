@@ -33,12 +33,13 @@ class BookingsController < ApplicationController
     @booking.update(booking_params)
 
     authorize @booking
+    redirect_to kondo_path(@kondo)
 
     # prevent refreshing the page from updating the booking status
-    respond_to do |format|
-    format.js
-    format.html
-    end
+    # respond_to do |format|
+    # format.js
+    # format.html
+    # end
   end
 
   private
