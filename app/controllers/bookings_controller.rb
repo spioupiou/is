@@ -1,12 +1,16 @@
 class BookingsController < ApplicationController
 
   def index
-    if params[:status]
-      @bookings = Booking.where(status: params[:status], user_id: current_user.id)
+    if current_user.renter?
+      if params[:status]
+        @bookings = Booking.where(status: params[:status], user_id: current_user.id)
+      else
+        @bookings = Booking.where(user_id: current_user.id).order(:status)
+      end
     else
-      @bookings = Booking.where(user_id: current_user.id).order(:status)
+      redirect_to kondos_path
     end
-  end
+ end
 
   # def new
   #   @kondo = Kondo.find(params[:kondo_id])
