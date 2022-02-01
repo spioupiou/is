@@ -1,5 +1,6 @@
 # Create ourselves!
 puts "Destroying previous seeds"
+Review.destroy_all
 Booking.destroy_all
 Kondo.destroy_all
 User.destroy_all
@@ -69,12 +70,13 @@ puts "User creation done!"
 
 #Creating new users
 # Kondo names, summary, and details
- name_summary_details =
-   [["Commercial Interior Designer", "Designing interior spaces to be functional to conduct business efficiently."," A professional who can create and direct the construction of these commercial spaces. Guides clients to select materials, colors, and furnishings that align with the company’s brand and aesthetic. Arranges the layout of interior walls and the use of spaces. Finally, directs and coordinates the work among the professionals working on the construction project."],
+name_summary_details = [
+  ["Commercial Interior Designer", "Designing interior spaces to be functional to conduct business efficiently."," A professional who can create and direct the construction of these commercial spaces. Guides clients to select materials, colors, and furnishings that align with the company’s brand and aesthetic. Arranges the layout of interior walls and the use of spaces. Finally, directs and coordinates the work among the professionals working on the construction project."],
   ["Space Planning Interior Designer", "Space planning is everything! Find your home design nirvana today.", "Space planning is a fundamental element of the interior design process. It starts with an in-depth analysis of how the space is to be used. The designer then draws up a plan that defines the zones of the space and the activities that will take place in those zones. The space plan will also define the circulation patterns that show how people will move through the space.  The plan is finished by adding details of all the furniture, equipment and hardware placement."],
-    ["Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
-    ["Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
-   ["Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."]]
+  ["Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
+  ["Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
+  ["Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."]
+]
 
 
 # Some kondos for provider users
@@ -84,14 +86,14 @@ puts "Creating kondos"
 10.times do
   services = name_summary_details.sample
   kondos = Kondo.new(
-              name: services[0],
-              summary: services[1],
-              details: services[2],
-              prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
-              price: ((rand(5..20)) * 1000),
-              service_duration: rand(1..7),
-              user_id: [user1, user3, user5, user7].sample.id
-              )
+    name: services[0],
+    summary: services[1],
+    details: services[2],
+    prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
+    price: ((rand(5..20)) * 1000),
+    service_duration: rand(1..7),
+    user_id: [user1, user3, user5, user7].sample.id
+  )
 
   kondos.save!
 end
@@ -113,3 +115,34 @@ kondos = Kondo.all
 end
 
 puts "Bookings Creation done!"
+
+bookings = Booking.all
+
+bad_reviews = [
+  "The designer was not very pleasant...", "Too expensive, wouldn't recommend",
+  "Showed up 1 hour late", "Did the job but was expecting more", "Too pricey"
+]
+
+good_reviews = [
+  "The designer did an awesome job!", "My house looks so much better now thanks to IS Kondo",
+  "100% would do it again", "My bedroom looks brand-new!", "I love the dedication my designed put in renovating the house",
+  "I have introduced this service to all my friends, it's just so good!", "Amazing job", "Great service!!"
+]
+
+5.times do
+  Review.create!(
+    rating: rand(0..2),
+    comment: bad_reviews.sample,
+    booking_id: bookings.sample.id,
+    user_id: [user1, user3, user5, user7].sample.id # only providers
+  )
+end
+
+25.times do
+  Review.create!(
+    rating: rand(3..5),
+    comment: good_reviews.sample,
+    booking_id: bookings.sample.id,
+    user_id: [user1, user3, user5, user7].sample.id # only providers
+  )
+end
