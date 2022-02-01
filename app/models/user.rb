@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # cause enum already takes care of this validation too
   enum role: { provider: 'provider', renter: 'renter' }
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :profile, presence: true
   validates :prefecture,
             inclusion: { in: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima
                                 Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa
