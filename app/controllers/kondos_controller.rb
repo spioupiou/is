@@ -16,6 +16,17 @@ class KondosController < ApplicationController
     # Provider's Page
     else
       @kondos = policy_scope(Kondo).where(user_id: current_user.id)
+
+      # Retrieve all bookings associated to the kondos of that specific user
+      @bookings = Booking.where(kondo_id: @kondos)
+
+      # Transform the bookings in markers
+      @markers = @bookings.geocoded.map do |booking|
+      {
+        lat: booking.latitude,
+        lng: booking.longitude
+      }
+      end
     end
   end
 
