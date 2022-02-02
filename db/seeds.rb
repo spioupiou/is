@@ -110,7 +110,7 @@ kondos = Kondo.all
     kondo_id: kondos.sample.id,
     status: ["waiting", "confirmed", "declined", "completed"].sample,
     booked_date: Time.now + 3.days,
-    address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Kanda", "Nakano", "Kichijoji"].sample
+    address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Chiyoda", "Nakano", "Kichijoji"].sample
   )
   bookings.save!
 end
