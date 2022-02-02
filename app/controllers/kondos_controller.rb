@@ -24,7 +24,8 @@ class KondosController < ApplicationController
       @markers = @bookings.geocoded.map do |booking|
       {
         lat: booking.latitude,
-        lng: booking.longitude
+        lng: booking.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { booking: booking })
       }
       end
     end
