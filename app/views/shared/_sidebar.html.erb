@@ -3,18 +3,30 @@
 
   
   <% if current_user != nil %>
-    <%= link_to "Profile", "#" %>
+    <%= link_to "#" do %>
+      <i class="far fa-user-circle fa-xs"></i> Profile
+    <% end %>
       <% if current_user.renter? %>
-        <%= link_to "My Bookings", bookings_path %>
+        <%= link_to bookings_path do %>
+          <i class="fas fa-book-open fa-xs"></i> My Bookings
+        <% end %>
       <% else %>
-        <%= link_to "My Kondos", kondos_path %>
+       <%= link_to kondos_path do %>
+        <i class="fas fa-magic fa-xs"></i> My Kondo
+       <% end %>
       <% end %>
     <% end %>
 
   <% if user_signed_in? %>
-    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+      <i class="fas fa-sign-out-alt fa-xs"></i> Log out
+    <% end %>
   <% else %>
-    <%= link_to "Log in", new_user_session_path %>
-    <%= link_to "Sign up", new_user_registration_path %>
+    <%= link_to new_user_session_path do %>
+      <i class="fas fa-sign-in-alt fa-xs"></i> Log in
+    <% end %>
+    <%= link_to new_user_registration_path do %>
+      <i class="fas fa-user-plus fa-xs"></i>  Sign up
+    <% end %>
   <% end %>
 </div>
