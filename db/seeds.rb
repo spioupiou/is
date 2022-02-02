@@ -102,16 +102,21 @@ puts "Kondos Creation done!"
 
 puts "Creating bookings"
 
-kondos = Kondo.all
-
-20.times do
-  bookings = Booking.new(
-    user_id: [user2, user4, user6, user8].sample.id,
-    kondo_id: kondos.sample.id,
-    status: ["waiting", "confirmed", "declined", "completed"].sample,
-    booked_date: Time.now + 3.days
-  )
-  bookings.save!
+# create 5 bookings for each of the 4 renters
+4.times do |user_index|
+  # book using 5 unique kondos, a user should not be able to book the same kondo twice unless the most recent booking has been completed/declined
+  # renter `booked samwe kondo twice` scenario is currently allowed but seeding this way prevents this sitaution from happening
+  kondos = Kondo.all.sample(5)
+  5.times do |kondo_index|
+    Booking.create!(
+      # user_index starts with 0 until 3
+      user_id: [user2, user4, user6, user8][user_index].id,
+      # kondo_index starts with 0 until 4
+      kondo_id: kondos[kondo_index].id,
+      status: ["waiting", "confirmed", "declined", "completed"].sample,
+      booked_date: Time.now + 3.days
+    )
+  end
 end
 
 puts "Bookings Creation done!"
