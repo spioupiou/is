@@ -1,4 +1,5 @@
 #card{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,10 +23,13 @@
     #card-footer{
         bottom: 0;
         display: flex;
+        position: absolute;
         justify-content: space-between;
+        padding-bottom: 8px;
+        width: 190px;
 
         h6{
-            color: $kondo
+            color: $kondo;
         }
 
         a{
