@@ -5,6 +5,8 @@ export const sweetalert2 = () => {
 
     const submit = document.querySelector("#submit-btn")
     const form = document.querySelector("#new_booking")
+
+    if (!!submit) {
     submit.addEventListener("click", (e) => {
         e.preventDefault();
         Swal.fire({
@@ -52,4 +54,5 @@ export const sweetalert2 = () => {
             }
           })
     })
+    }
 }
