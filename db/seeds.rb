@@ -127,7 +127,7 @@ puts "Creating bookings"
       # kondo_index starts with 0 until 4
       kondo_id: kondos[kondo_index].id,
       status: ["waiting", "confirmed", "declined", "completed"].sample,
-      booked_date: Time.now + 3.days
+      booked_date: Time.now + 3.days,
       address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Chiyoda", "Nakano", "Kichijoji"].sample
     )
   end
