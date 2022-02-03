@@ -13,6 +13,12 @@
 @import "pages/index";
 
 // Global Settings
-.container{
-    margin: 32px auto;
+.container {
+  margin: 32px auto;
+}
+
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }
