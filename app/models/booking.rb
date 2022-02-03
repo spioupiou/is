@@ -11,6 +11,7 @@ class Booking < ApplicationRecord
   validate :booked_date_is_a_date
   validate :booked_date_three_days_prior
   validate :booked_date_too_far
+  validates :booked_date, uniqueness: { scope: [:user_id, :kondo_id], message: "You already booked this kondo on that day" }
 
   def booked_status_color
     if self.completed? then "#5454E8"
