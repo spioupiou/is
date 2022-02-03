@@ -32,13 +32,13 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
     authorize @booking
-    
+
     redirect_to kondo_path(@kondo)
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:booked_date, :status)
+    params.require(:booking).permit(:booked_date, :status, :address)
   end
 end
