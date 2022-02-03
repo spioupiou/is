@@ -1,0 +1,4 @@
+<% kondo = Kondo.find(booking.kondo_id) %>
+<% user = User.find(booking.user_id) %>
+<h4><%= kondo.name %></h4>
+<p>Booked by <%= user.first_name %> <%= user.last_name %> on <%= booking.booked_date %></p>
