@@ -25,7 +25,8 @@ class KondosController < ApplicationController
       {
         lat: booking.latitude,
         lng: booking.longitude,
-        info_window: render_to_string(partial: "info_window", locals: { booking: booking })
+        info_window: render_to_string(partial: "info_window", locals: { booking: booking }),
+        image_url: helpers.asset_url('kondo-logo.png')
       }
       end
     end

@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title"><%= kondo.name %></h5>
+              <h5 class="card-title" style="min-height: 2em;"><%= kondo.name %></h5>
               <p class="card-text">Provider: <%= User.find(kondo.user_id).first_name %></p>
               <p class="card-text">Booked Date: <%= booking.booked_date %></p>
               <div class="d-flex">
