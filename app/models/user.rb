@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :kondos
   has_many :bookings
   has_many :reviews
+  has_one :profile
   has_one_attached :photo
 
   # no need for validates :role, inclusion: { in: ["renter", "provider"] }

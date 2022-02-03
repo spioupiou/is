@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   private
 
   def skip_pundit?
-    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-  end
+    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)|(^profiles$)/
+end
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
