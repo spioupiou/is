@@ -1,1 +1,11 @@
 <h1> Profile Page </h1>
+
+<h2>Welcome <%= @user.first_name%> <%= @user.last_name %></h2>
+
+
+<!--- TESTING -->
+
+<p>Job Title: <%= @profile.job_title %></p>
+<p> About Me: <%= @profile.about_me %></p>
+<p> Years of Experience: <%= @profile.years_of_exp %></p>
+<p> My location is: <%= @user.prefecture %></p>

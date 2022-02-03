@@ -1,9 +1,9 @@
 <div id="mySidenav" class="sidenav">
   <a class="closebtn"><i class="fas fa-times"></i></a>
 
-  
+
   <% if current_user != nil %>
-    <%= link_to "#" do %>
+    <%= link_to profile_path(current_user.id) do %>
       <i class="far fa-user-circle fa-xs"></i> Profile
     <% end %>
       <% if current_user.renter? %>
