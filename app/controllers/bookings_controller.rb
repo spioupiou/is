@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date])
+    @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date], address: params[:booking][:address])
     authorize @booking
 
     # NOTE: that booking status defaults to "waiting"
