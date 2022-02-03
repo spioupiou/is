@@ -17,8 +17,7 @@ const initMapbox = () => {
     // Draw the Map
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10' // style can be changed later
-      // 'mapbox://styles/iskondo/ckz6jp5yw000v14mooolgsmuu'
+      style: 'mapbox://styles/iskondo/ckz6xx3py001h15qr3quevfj1' // without road labels
     });
 
     // Draw the markers
@@ -32,7 +31,7 @@ const initMapbox = () => {
       element.className = 'marker';
       element.style.backgroundImage = `url('${marker.image_url}')`;
       element.style.backgroundSize = 'cover';
-      element.style.width = '40px'; //90 38
+      element.style.width = '40px';
       element.style.height = '31px';
 
       new mapboxgl.Marker(element)
