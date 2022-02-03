@@ -32,7 +32,12 @@ def create_user(full_name, role)
     email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
     password: "123456",
     role: role,
-    prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample
+    prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample,
+    profile_id: Profile.create!(
+      job_title: ["Housekeeper", "Cleaner Extraordinaire", "Interior Designer"].sample,
+      about_me: "My name is #{full_name.split.first} and I love to clean!",
+      years_of_exp: rand(1..10),
+    ).id,
   )
 end
 
