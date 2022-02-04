@@ -20,7 +20,7 @@ class KondosController < ApplicationController
          @filter = params[:search]["tags"].push(params[:search]["prefecture"]).flatten
          @kondos = policy_scope(Kondo).all.global_search("#{@filter}")
       else
-         @kondos = Kondo.all
+         @kondos = policy_scope(Kondo).all
       end
     # Provider's Page
     else
