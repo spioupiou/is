@@ -155,22 +155,23 @@ good_reviews = [
   "I have introduced this service to all my friends, it's just so good!", "Amazing job", "Great service!!"
 ]
 
-5.times do
-  Review.create!(
-    rating: rand(0..2),
-    comment: bad_reviews.sample,
-    booking_id: bookings.sample.id,
-    user_id: [user1, user3, user5, user7].sample.id # only providers
-  )
-end
+# only create reviews for bookings that have been completed
+# 5.times do
+#   Review.create!(
+#     rating: rand(0..2),
+#     comment: bad_reviews.sample,
+#     booking_id: bookings.sample.id,
+#     user_id: [user1, user3, user5, user7].sample.id # only providers
+#   )
+# end
 
-25.times do
-  Review.create!(
-    rating: rand(3..5),
-    comment: good_reviews.sample,
-    booking_id: bookings.sample.id,
-    user_id: [user1, user3, user5, user7].sample.id # only providers
-  )
-end
+# 25.times do
+#   Review.create!(
+#     rating: rand(3..5),
+#     comment: good_reviews.sample,
+#     booking_id: bookings.sample.id,
+#     user_id: [user1, user3, user5, user7].sample.id # only providers
+#   )
+# end
 
 puts "Reviews Creation done!"
