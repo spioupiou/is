@@ -3,6 +3,7 @@ export const autoSubmit = () => {
     const select = document.querySelector("#search_prefecture")
     const form = document.querySelector('form');
     
+    if (!!select){
       for (const check of checkBoxes) {
         check.addEventListener('change', () => {
           Rails.fire(form, 'submit');
@@ -12,4 +13,6 @@ export const autoSubmit = () => {
     select.addEventListener("change", () => {
       Rails.fire(form, 'submit');
     })
+
+    }
 }
