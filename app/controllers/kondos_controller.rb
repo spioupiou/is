@@ -17,7 +17,7 @@ class KondosController < ApplicationController
       #Index tab search
       
       if params[:search]
-         @filter = params[:search]["tags"].push(params[:search]["prefecture"]).flatten
+         @filter = params[:search]["tags"].push(params[:search]["prefecture"]).flatten.reject(&:blank?)
          @kondos = policy_scope(Kondo).all.global_search("#{@filter}")
       else
          @kondos = policy_scope(Kondo).all
