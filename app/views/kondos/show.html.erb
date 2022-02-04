@@ -27,7 +27,8 @@
       <%# --- End of Kondo Details --- %>
     </div>
 
-    <%# Renters can view a kondo and see booking status / book a kondo / leavea review %>
+    <%# Review cheat sheet: https://docs.google.com/spreadsheets/d/1wh7T1UGmmVacvZtotEdq9aZ1-9o-BayaYrR3fnfPRWg/edit#gid=0 %>
+    <%# Renters can view a kondo and see booking status / book a kondo / leave a review %>
     <% if @user[:user_type] == "renter" %>
       <%# renter can book if they have never booked the kondo yet or if previous booking for the kondo is completed or declined %>
       <% if @user[:can_book?] %>

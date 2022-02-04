@@ -103,42 +103,42 @@ class KondosController < ApplicationController
       if current_user.renter?
         user_type = "renter"
 
-        # find most recent booking of renter on current kondo
+        # find most recent booking of renter for the kondo in the argument
         most_recent_booking = Booking.where(user: current_user, kondo: kondo).order(created_at: :asc).first
-        # find out if the user already made a review for the most recent completed booking
+        # find out if the user already made a review for the most recent completed booking of this kondo
         has_been_reviewed = Review.find_by(booking: most_recent_booking)
 
         # check if there is a most recent booking
         if most_recent_booking.present?
+
           # check if most recent booking status is completed
           if most_recent_booking.completed?
-            # check if a review has already been created for this booking
-  
             # show booking status instead of booking form
             can_book = true
             # booking form button as `Book again!` instead of `Book now!`
             book_now = false
   
-            # use this flag to show review form and review promt
+            # use this flag to show review form if there are now reviews yet
             can_review = true if !has_been_reviewed
           else
             # this else block means most_recent_booking status is not `completed`
             if most_recent_booking.declined?
               can_book = true
-              # booking form button as `Book again` instead of `Book now`
+              # method returns a boolean, true if renter had a completed booking of this kondo before, else false
               book_now = has_completed_a_booking_before
             end
-            # this block means that the status is either `waiting` or `confirmed`, renter can't book
-            # can_book is false by default
+            # this block means that the status is either `waiting` or `confirmed`, no code needed
+            # we show booking status instead of booking form, renter can't book, can_book is false by default
           end
         else
-          # this block means renter has never booked this kondo yet
+          # this block means renter has never booked this kondo, most_recent_booking.present? is nil
           can_book = true
           book_now = true
         end
       else
-        user_type = "provider"
         # this block means user is a provider
+        user_type = "provider"
+        # find out if provider is the creator of the kondo
         is_kondo_creator = current_user.id == kondo.user.id
       end
     else
@@ -147,6 +147,7 @@ class KondosController < ApplicationController
       book_now = true
     end
 
+    # method returns this hash
     {
       # value after || will be used if value on left is nil
       user_type: user_type,
