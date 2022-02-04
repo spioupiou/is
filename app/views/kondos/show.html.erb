@@ -1,67 +1,63 @@
 <div class="container">
   <div class="row justify-content-around">
-    <div class="col-lg-6 col-sm-12 p-4 m-2" style="background: white;">
+    <div id="booking-form" class="col-lg-6 col-sm-12 p-4 m-2" style="background: white;">
       <div class="row text-center">
+
         <div class="col-lg-4 col-sm-4">
-          <%= cl_image_tag @kondo.user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"%>
+          <%= link_to profile_path (@kondo.user.profile_id) do %>
+            <%= cl_image_tag @kondo.user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"%>
+          <% end %>
         </div>
+
         <div class="col-lg-8 col-sm-6 align-self-center">
-          <h3><%= @kondo.user.first_name %> <%= @kondo.user.last_name %></h3>
+          <%= link_to profile_path (@kondo.user.profile_id) do %>
+            <h3><%= @kondo.user.first_name %> <%= @kondo.user.last_name %></h3>
+          <% end %>
           <h5><%= @kondo.name %></h5>
         </div>
       </div>
+
+      <%# --- Start of Kondo Details --- %>
       <div class="row">
         <div class="col-12 py-5">
           <h4>Details</h4>
           <p><%= @kondo.details %></p>
         </div>
         <%# Only the provider who created the kondo can see this %>
-        <% if user_signed_in? && current_user.id == @kondo.user_id %>
+        <% if @user[:is_kondo_creator?] %>
           <div class="col-12 d-flex justify-content-between">
             <%= link_to "Edit", edit_kondo_path(@kondo), style: "color: green" %>
             <%= link_to "Delete", kondo_path(@kondo), method: :delete, data: { confirm: "Are you sure?" }, style: "color: red" %>
           </div>
         <% end %>
-        <%#-------------------------%>
       </div>
+      <%# --- End of Kondo Details --- %>
     </div>
-    <%# Unauthenticated Users or Renters can view a kondo and see book button %>
-    <% if !user_signed_in? || current_user.renter? %>
-      <div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
-        <%# Book form here%>
-        <h3>Make a Reservation</h3><br>
-        <h5><strong>￥<%= @kondo.price %></strong> <small>/ session</small></h5>
-        <%= simple_form_for([@kondo, @booking]) do |f| %>
-          <div class="d-flex flex-column">
-            <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false, class: "p-1 my-2" %>
-            <%= f.input :address, id: 'booking_address' %>
-            <%= f.submit "Book now", class:"btn btn-primary my-2", id:"submit-btn" %>
-            <%= f.error :booked_date, style: "color:red" %>
-          </div>
+
+    <%# Review cheat sheet: https://docs.google.com/spreadsheets/d/1wh7T1UGmmVacvZtotEdq9aZ1-9o-BayaYrR3fnfPRWg/edit#gid=0 %>
+    <%# Renters can view a kondo and see booking status / book a kondo / leave a review %>
+    <% if @user[:user_type] == "renter" %>
+      <%# renter can book if they have never booked the kondo yet or if previous booking for the kondo is completed or declined %>
+      <% if @user[:can_book?] %>
+        <%= render "booking_form" %>
+        <%# renter can review if most recent booking status for kondo is completed and if they have not made a review yet %>
+        <% if @user[:can_review?] %>
+          <%= render "review_form" %>
         <% end %>
+      <% else %>
+        <%# if renter can't book (if status is waiting or confirmed), show booking status %>
+        <%= render "booking_status" %>
       <% end %>
-    </div>
-  <%#----------------------------%>
+    <% end %>
+
+    <%# Visitors can view a kondo and can make an attempt to book a kondo %>
+    <% if @user[:user_type] == "visitor" %>
+      <%= render "booking_form" %>
+    <% end %>
   </div>
 </div>
 
 <%# Only the provider who created the kondo can see this %>
-<% if user_signed_in? && current_user.id == @kondo.user_id %>
-  <div class="container">
-    <h4>People who currently booked this Kondo:</h4>
-      <div class="row">
-        <% @kondo.bookings.each do |booking| %>
-          <div class="col-lg-4 col-md-6 col-sm-12 bg-white p-4 m-2">
-            <p>Renter: <%= User.find(booking.user_id).first_name %></p>
-            <p>Booked Date: <%= booking.booked_date %></p>
-            <%= simple_form_for ([@kondo, booking]), remote: true  do |f| %>
-              <div class="d-flex align-items-center">
-                <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'], label: false %>
-                <%= f.submit "Update Status", class: "btn btn-success" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-  </div>
+<% if @user[:is_kondo_creator?] %>
+  <%= render "bookings_for_provider" %>
 <% end %>

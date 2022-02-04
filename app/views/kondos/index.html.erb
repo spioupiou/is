@@ -15,17 +15,17 @@
           path: kondo_path(kondo)
         %>
         </div>
+      <% end %>
 
       <!-- Map for providers -->
       <div id="map"
             style="width: 100%; height: 600px;"
             data-markers="<%= @markers.to_json %>"
             data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-    <% end %>
   </div>
 
   <% else  %>
-    <h2> Find your kondos</h2> <!-- For renters and unauthenticated users -->
+    <h2> Discover your next Kondo</h2> <!-- For renters and unauthenticated users -->
       <div class="row">
         <% @kondos.each do |kondo| %>
           <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">

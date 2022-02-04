@@ -1,0 +1,12 @@
+<div id="booking-form" class="col-lg-4 col-sm-12 p-4 m-2">
+  <h3>Make a Reservation</h3><br>
+  <h5><strong>￥<%= @kondo.price %></strong> <small>/ session</small></h5>
+  <%= simple_form_for([@kondo, @booking]) do |f| %>
+    <div class="d-flex flex-column">
+      <%= f.date_field :booked_date, min: Date.today + 3, as: :date, html5: true, error: false, class: "p-1 my-2" %>
+      <%= f.input :address, id: 'booking_address' %>
+      <%= f.submit "#{@user[:booking_btn_caption]}", class:"btn btn-primary my-2", id:"submit-btn" %>
+      <%= f.error :booked_date, style: "color:red" %>
+    </div>
+  <% end %>
+</div>

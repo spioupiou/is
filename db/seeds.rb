@@ -32,7 +32,12 @@ def create_user(full_name, role)
     email: "#{'r' if role == 'renter'}#{full_name.split.first.downcase}@email.com",
     password: "123456",
     role: role,
-    prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample
+    prefecture: ["Tokyo", "Chiba", "Tochigi", "Yamaguchi"].sample,
+    profile_id: Profile.create!(
+      job_title: ["Housekeeper", "Cleaner Extraordinaire", "Interior Designer"].sample,
+      about_me: "My name is #{full_name.split.first} and I love to clean!",
+      years_of_exp: rand(1..10),
+    ).id,
   )
 end
 
@@ -127,7 +132,7 @@ puts "Creating bookings"
       # kondo_index starts with 0 until 4
       kondo_id: kondos[kondo_index].id,
       status: ["waiting", "confirmed", "declined", "completed"].sample,
-      booked_date: Time.now + 3.days
+      booked_date: Time.now + 3.days,
       address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Chiyoda", "Nakano", "Kichijoji"].sample
     )
   end
@@ -150,22 +155,23 @@ good_reviews = [
   "I have introduced this service to all my friends, it's just so good!", "Amazing job", "Great service!!"
 ]
 
-5.times do
-  Review.create!(
-    rating: rand(0..2),
-    comment: bad_reviews.sample,
-    booking_id: bookings.sample.id,
-    user_id: [user1, user3, user5, user7].sample.id # only providers
-  )
-end
+# only create reviews for bookings that have been completed
+# 5.times do
+#   Review.create!(
+#     rating: rand(0..2),
+#     comment: bad_reviews.sample,
+#     booking_id: bookings.sample.id,
+#     user_id: [user1, user3, user5, user7].sample.id # only providers
+#   )
+# end
 
-25.times do
-  Review.create!(
-    rating: rand(3..5),
-    comment: good_reviews.sample,
-    booking_id: bookings.sample.id,
-    user_id: [user1, user3, user5, user7].sample.id # only providers
-  )
-end
+# 25.times do
+#   Review.create!(
+#     rating: rand(3..5),
+#     comment: good_reviews.sample,
+#     booking_id: bookings.sample.id,
+#     user_id: [user1, user3, user5, user7].sample.id # only providers
+#   )
+# end
 
 puts "Reviews Creation done!"
