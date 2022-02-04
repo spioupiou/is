@@ -7,12 +7,21 @@ class KondosController < ApplicationController
     if !user_signed_in? || current_user.renter?
       @kondos = policy_scope(Kondo).order(created_at: :desc)
 
+      #Homepage search
       unless params[:search_kondos] == ""
         @kondos = policy_scope(Kondo).where("LOWER(prefecture) like ?","%#{params[:search_kondos].to_s.downcase}%")
       else
         @kondos = policy_scope(Kondo).all
       end
 
+      #Index tab search
+      
+      if params[:search]
+         @filter = params[:search]["tags"].push(params[:search]["prefecture"]).flatten
+         @kondos = Kondo.all.global_search("#{@filter}")
+      else
+         @kondos = Kondo.all
+      end
     # Provider's Page
     else
       @kondos = policy_scope(Kondo).where(user_id: current_user.id)
@@ -29,6 +38,12 @@ class KondosController < ApplicationController
       }
       end
     end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end  
+    
   end
 
   def show
@@ -85,6 +100,6 @@ class KondosController < ApplicationController
   end
 
   def kondo_params
-    params.require(:kondo).permit(:name, :summary, :details, :prefecture, :price)
+    params.require(:kondo).permit(:name, :summary, :details, :prefecture, :price, :tag_list)
   end
 end

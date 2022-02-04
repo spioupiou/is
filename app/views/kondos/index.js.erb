@@ -1,0 +1,12 @@
+var replaceKondos = (innerHTML) => {
+  const kondos = document.getElementById('kondos');
+  kondos.innerHTML = innerHTML;
+}
+replaceKondos("<%= j render 'kondo_index', kondos: @kondos %>");
+
+if ('<%= @filter %>' === "[]") {
+    replaceKondos("<%= j render 'kondo_index', kondos: Kondo.all %>");
+}
+else {
+    replaceKondos("<%= j render 'kondo_index', kondos: @kondos %>");
+}
