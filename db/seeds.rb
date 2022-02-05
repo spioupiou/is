@@ -76,14 +76,14 @@ puts "User creation done!"
 #Creating new users
 # Kondo names, summary, and details
 name_summary_details = [
-  ["Commercial Interior Designer", "Designing interior spaces to be functional to conduct business efficiently."," A professional who can create and direct the construction of these commercial spaces. Guides clients to select materials, colors, and furnishings that align with the company’s brand and aesthetic. Arranges the layout of interior walls and the use of spaces. Finally, directs and coordinates the work among the professionals working on the construction project."],
-  ["Space Planning Interior Designer", "Space planning is everything! Find your home design nirvana today.", "Space planning is a fundamental element of the interior design process. It starts with an in-depth analysis of how the space is to be used. The designer then draws up a plan that defines the zones of the space and the activities that will take place in those zones. The space plan will also define the circulation patterns that show how people will move through the space.  The plan is finished by adding details of all the furniture, equipment and hardware placement."],
-  ["Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
-  ["Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
-  ["Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."],
-  ["La Casa Care", "Imagine how you want your place to be like, lets make it happen.", "As Casa Caretaker, I will be responsible for all aspects of planning, budgeting, and execution of all your interior design needs. I do my work best by understanding your available space and style preferences. My in-depth knowledge of design principles, and concepts will bring enlightenment in your abode."],
-  ["Yours Truely Butler", "The only 'Swiss army knife' you'll need at home.", "A butler is like a button that holds the family together. Their many duties and responsibilities can take the weight off a busy family particularly when that family has many tasks at hand and perhaps when both adults work long hours. A butler can also be for who can afford it and who would like to spend that extra time on leisure and hobbies, entrusting homely affairs to an individual they feel that they can count on."],
-  ["Feng Shui Pro", "You and your home, in harmony.", "At its simplest, Feng Shui is the practice of placement to achieve harmony and a conscious connection with the environment so the energy around you works for and not against you. Feng Shui enables you to influence these interacting energies to achieve specific life improvements."]
+  ["designers","Commercial Interior Designer", "Designing interior spaces to be functional to conduct business efficiently."," A professional who can create and direct the construction of these commercial spaces. Guides clients to select materials, colors, and furnishings that align with the company’s brand and aesthetic. Arranges the layout of interior walls and the use of spaces. Finally, directs and coordinates the work among the professionals working on the construction project."],
+  ["designers","Space Planning Interior Designer", "Space planning is everything! Find your home design nirvana today.", "Space planning is a fundamental element of the interior design process. It starts with an in-depth analysis of how the space is to be used. The designer then draws up a plan that defines the zones of the space and the activities that will take place in those zones. The space plan will also define the circulation patterns that show how people will move through the space.  The plan is finished by adding details of all the furniture, equipment and hardware placement."],
+  ["designers","Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
+  ["keepers","Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
+  ["keepers","Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."],
+  ["others","La Casa Care", "Imagine how you want your place to be like, lets make it happen.", "As Casa Caretaker, I will be responsible for all aspects of planning, budgeting, and execution of all your interior design needs. I do my work best by understanding your available space and style preferences. My in-depth knowledge of design principles, and concepts will bring enlightenment in your abode."],
+  ["others","Yours Truely Butler", "The only 'Swiss army knife' you'll need at home.", "A butler is like a button that holds the family together. Their many duties and responsibilities can take the weight off a busy family particularly when that family has many tasks at hand and perhaps when both adults work long hours. A butler can also be for who can afford it and who would like to spend that extra time on leisure and hobbies, entrusting homely affairs to an individual they feel that they can count on."],
+  ["others","Feng Shui Pro", "You and your home, in harmony.", "At its simplest, Feng Shui is the practice of placement to achieve harmony and a conscious connection with the environment so the energy around you works for and not against you. Feng Shui enables you to influence these interacting energies to achieve specific life improvements."]
 ]
 
 # Some kondos for provider users
@@ -92,9 +92,10 @@ puts "Creating kondos"
 # First four unique kondos
 name_summary_details.sample(4).each do |detail|
   Kondo.create!(
-    name: detail[0],
-    summary: detail[1],
-    details: detail[2],
+    tag_list: detail[0],
+    name: detail[1],
+    summary: detail[2],
+    details: detail[3],
     prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
@@ -106,9 +107,10 @@ end
 6.times do
   services = name_summary_details.sample
   Kondo.create!(
-    name: services[0],
-    summary: services[1],
-    details: services[2],
+    tag_list: services[0],
+    name: services[1],
+    summary: services[2],
+    details: services[3],
     prefecture: %w[Chiba Kyoto Osaka Tokyo].sample,
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
