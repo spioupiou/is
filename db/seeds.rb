@@ -81,7 +81,7 @@ name_summary_details = [
   ["Minimalist Interior Designer", "Live lavishly without the clutter.", "Minimalist interior design is very similar to modern interior design and involves using the bare essentials to create a simple and uncluttered space. It’s characterised by simplicity, clean lines, and a monochromatic palette with colour used as an accent."],
   ["Professional Housekeeper", "Providing a professional service to keep your home clean and tidy.", "A professional housekeeper who is trained to maintain the cleanliness and order of a home. Responsible for cleaning and maintaining the house, and services can include maintenance of the house’s electrical system, plumbing, and other appliances."],
   ["Industrial Housekeeping", "Aimed to provide excellent quality services", "Part of our job is to inform our customers and users about the potential problems and health hazards that may arise if the equipment is not used or maintained properly, or if there is not a working strategy in place for making sure that the work environment is safe. If the facility and the machines are dusty and dirty, the quality of what is being manufactured is likely to be affected as well. A clean, well-kept work environment might also very well make a company more attractive to customers as well as existing and potential employees."],
-  ["La Casa Care", "Imagine how you want your place to be like, lets make it happen.", "As Casa Caretaker, I will be responsible for all aspects of planning, budgeting, and execution of all your interior design needs. I do my work best by understanding your available space and style preferences. My in-depth knowledge of design principles, and concepts will bring enlightenment in your abode."],
+  ["La Casa Care", "Imagine how you want your place to be like, lets make it happen.", "As a Casa Caretaker, I will be responsible for all aspects of planning, budgeting, and execution of all your interior design needs. I do my work best by understanding your available space and style preferences. My in-depth knowledge of design principles, and concepts will bring enlightenment in your abode."],
   ["Yours Truely Butler", "The only 'Swiss army knife' you'll need at home.", "A butler is like a button that holds the family together. Their many duties and responsibilities can take the weight off a busy family particularly when that family has many tasks at hand and perhaps when both adults work long hours. A butler can also be for who can afford it and who would like to spend that extra time on leisure and hobbies, entrusting homely affairs to an individual they feel that they can count on."],
   ["Feng Shui Pro", "You and your home, in harmony.", "At its simplest, Feng Shui is the practice of placement to achieve harmony and a conscious connection with the environment so the energy around you works for and not against you. Feng Shui enables you to influence these interacting energies to achieve specific life improvements."]
 ]
@@ -95,7 +95,7 @@ name_summary_details.sample(4).each do |detail|
     name: detail[0],
     summary: detail[1],
     details: detail[2],
-    prefecture: %w[Aichi Akita Aomori Chiba Ehime Fukui Fukuoka Fukushima Gifu Gunma Hiroshima Hokkaido Hyogo Ibaraki Ishikawa Iwate Kagawa Kagoshima Kanagawa Kochi Kumamoto Kyoto Mie Miyagi Miyazaki Nagano Nagasaki Nara Niigata Okayama Okinawa Oita Osaka Saga Saitama Shiga Shimane Shizuoka Tochigi Tokushima Tokyo Tottori Toyama Wakayama Yamagata Yamaguchi Yamanashi].sample,
+    prefecture: %w[Chiba Kyoto Osaka Tokyo].sample,
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
     user_id: [user1, user3, user5, user7].sample.id
@@ -103,7 +103,7 @@ name_summary_details.sample(4).each do |detail|
 end
 
 # Reimaining kondos that can repeat
-6.times do
+8.times do
   services = name_summary_details.sample
   Kondo.create!(
     name: services[0],
@@ -118,60 +118,81 @@ end
 
 puts "Kondos Creation done!"
 
-puts "Creating bookings"
+puts "Creating completed bookings for reviews"
 
-# create 5 bookings for each of the 4 renters
+def bad_reviews
+  bad_reviews = [
+    "The designer was not very pleasant...", "Too expensive, wouldn't recommend",
+    "Showed up 1 hour late", "Did the job but was expecting more", "Too pricey"
+  ]
+  { rating: rand(1..2), comment: bad_reviews.sample}
+end
+
+def good_reviews
+  good_reviews = [
+    "The designer did an awesome job!", "My house looks so much better now thanks to IS Kondo",
+    "100% would do it again", "My bedroom looks brand-new!", "I love the dedication my designed put in renovating the house",
+    "I have introduced this service to all my friends, it's just so good!", "Amazing job", "Great service!!"
+  ]
+  { rating: rand(3..5), comment: good_reviews.sample}
+end
+
+# make at least 2 completed bookings with a review for each renter
+# this way we'll get 8reviews across 4 providers by deafault
 4.times do |user_index|
-  # book using 5 unique kondos, a user should not be able to book the same kondo twice unless the most recent booking has been completed/declined
-  # renter `booked samwe kondo twice` scenario is currently allowed but seeding this way prevents this sitaution from happening
-  kondos = Kondo.all.sample(5)
-  5.times do |kondo_index|
+  # specify renter
+  renter = [user2, user4, user6, user8][user_index]
+
+  2.times do
+    # pick a random kondo
+    kondo = Kondo.all.sample
+
+    # completed booking creation
+    booking = Booking.create!(
+      # user_index starts with 0 until 3
+      user_id: renter.id,
+      kondo_id: kondo.id,
+      status: "completed",
+      # booked date must be in the past
+      booked_date: Time.now - rand(0..30).days,
+      address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Chiyoda", "Nakano", "Kichijoji"].sample
+    )
+
+    # review returns something like this: {:rating=>2, :comment=>"Too expensive, wouldn't recommend"}
+    review = [bad_reviews, good_reviews].sample
+    # review creation for completed booking
+    Review.create!(
+      rating: review[:rating],
+      comment: review[:comment],
+      booking_id: booking.id,
+      user_id: booking.user.id  # must be the renter who created the booking
+    )
+  end
+end
+
+puts "Reviews Creation done!"
+
+puts "Creating more bookings"
+
+# create 4 bookings for each of the 4 renters, one booking per status
+4.times do |user_index|
+  # book using 4 unique kondos, a user should not be able to book the same kondo twice unless the most recent booking has been completed/declined
+  # renter `booked same kondo twice` scenario is currently allowed but seeding this way prevents this sitaution from happening
+  kondos = Kondo.all.sample(4)
+  4.times do |kondo_index|
+    status = ["completed", "declined", "confirmed", "waiting"][kondo_index]
     Booking.create!(
       # user_index starts with 0 until 3
       user_id: [user2, user4, user6, user8][user_index].id,
       # kondo_index starts with 0 until 4
       kondo_id: kondos[kondo_index].id,
-      status: ["waiting", "confirmed", "declined", "completed"].sample,
-      booked_date: Time.now + 3.days,
+      # one booking with a completed status so that a review form can be rendered
+      status: status,
+      # completed booking's date must be in the past
+      booked_date: status == "completed" ? Time.now - rand(0..30).days : Time.now + rand(3..30).days,
       address: ["Meguro", "Tokyo", "Shinjuku", "Shibuya", "Shinagawa", "Chiyoda", "Nakano", "Kichijoji"].sample
     )
   end
 end
 
 puts "Bookings Creation done!"
-
-puts "Creating reviews"
-
-bookings = Booking.all
-
-bad_reviews = [
-  "The designer was not very pleasant...", "Too expensive, wouldn't recommend",
-  "Showed up 1 hour late", "Did the job but was expecting more", "Too pricey"
-]
-
-good_reviews = [
-  "The designer did an awesome job!", "My house looks so much better now thanks to IS Kondo",
-  "100% would do it again", "My bedroom looks brand-new!", "I love the dedication my designed put in renovating the house",
-  "I have introduced this service to all my friends, it's just so good!", "Amazing job", "Great service!!"
-]
-
-# only create reviews for bookings that have been completed
-# 5.times do
-#   Review.create!(
-#     rating: rand(0..2),
-#     comment: bad_reviews.sample,
-#     booking_id: bookings.sample.id,
-#     user_id: [user1, user3, user5, user7].sample.id # only providers
-#   )
-# end
-
-# 25.times do
-#   Review.create!(
-#     rating: rand(3..5),
-#     comment: good_reviews.sample,
-#     booking_id: bookings.sample.id,
-#     user_id: [user1, user3, user5, user7].sample.id # only providers
-#   )
-# end
-
-puts "Reviews Creation done!"
