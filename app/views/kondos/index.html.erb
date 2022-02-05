@@ -6,14 +6,25 @@
     <div class="row">
     <% @kondos.each do |kondo| %>
       <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
-        <%= render "components/cardProvider",
-          book: kondo.bookings.count,
-          price: kondo.price,
-          summary: kondo.summary.split(" ").first(10).join(" "),
-          kondo: kondo.name,
-          prefecture: kondo.prefecture,
-          path: kondo_path(kondo)
-        %>
+        <% all_bookings = kondo.bookings.where(status: ['waiting', 'confirmed']).count%>
+          <% if all_bookings == 0 %>
+            <%= render "components/cardProviderNoBadge",
+              price: kondo.price,
+              summary: kondo.summary.split(" ").first(10).join(" "),
+              kondo: kondo.name,
+              prefecture: kondo.prefecture,
+              path: kondo_path(kondo)
+            %>
+          <% else %>
+            <%= render "components/cardProvider",
+              book: all_bookings,
+              price: kondo.price,
+              summary: kondo.summary.split(" ").first(10).join(" "),
+              kondo: kondo.name,
+              prefecture: kondo.prefecture,
+              path: kondo_path(kondo)
+            %>
+          <% end %>
         </div>
       <% end %>
 
@@ -25,7 +36,7 @@
   </div>
 
   <% else  %>
-  
+
     <!-- For renters and unauthenticated users -->
     <div id="side-filter">
       <%= render  "components/search_index", filter: :search, path: kondos_path %>
@@ -35,4 +46,3 @@
     </div>
   <% end %>
 </div>
-
