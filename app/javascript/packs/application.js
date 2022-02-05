@@ -28,6 +28,7 @@ import { sideNav } from "../components/sidebar";
 import { initMapbox } from '../plugins/init_mapbox';
 import { sweetalert2 } from "../plugins/sweet_alert";
 import { initSplide } from "../plugins/init_splide";
+import "@splidejs/splide/dist/css/splide.min.css";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
