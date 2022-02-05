@@ -29,7 +29,7 @@
                 <p class="card-text mr-2">Status:</p>
                 <p class="card-text" style="color:<%= booking.booked_status_color %>"><%= booking.status.capitalize %></p>
               </div>
-              <p class="card-text"><%= link_to "See Details", kondo_path(kondo) %></p>
+              <p class="card-text"><%= link_to "See Details", kondo_path(kondo, booking_id: booking.id) %></p>
             </div>
           </div>
         </div>
