@@ -15,7 +15,7 @@ class KondosController < ApplicationController
       end
 
       #Index tab search
-      
+
       if params[:search]
          @filter = params[:search]["tags"].push(params[:search]["prefecture"]).flatten.reject(&:blank?)
          @kondos = policy_scope(Kondo).all.global_search("#{@filter}")
@@ -27,7 +27,7 @@ class KondosController < ApplicationController
       @kondos = policy_scope(Kondo).where(user_id: current_user.id)
 
       # Retrieve all bookings associated to the kondos of that specific user
-      @bookings = Booking.where(kondo_id: @kondos)
+      @bookings = Booking.where(kondo_id: @kondos, status: ['waiting', 'confirmed'])
 
       # Transform the bookings in markers
       @markers = @bookings.geocoded.map do |booking|
@@ -43,8 +43,8 @@ class KondosController < ApplicationController
     respond_to do |format|
       format.html
       format.js
-    end  
-    
+    end
+
   end
 
   def show
@@ -62,7 +62,7 @@ class KondosController < ApplicationController
     # book_now: "Book again!" / "Book now!"
     # sample hash for renter that can reivew: { :user_type=>"renter", booking: booking-object, :can_review?=>true,
     # :can_book?=>true, :booking_btn_caption=> "Book now!" or "Book again!", :is_kondo_creator?=>false }
-    
+
     @user = analyze_user(@kondo, params[:booking_id])
     # raise
   end
@@ -138,7 +138,7 @@ class KondosController < ApplicationController
             can_book = true
             # booking form button as `Book again!` instead of `Book now!`
             book_now = false
-  
+
             # use this flag to show review form if there are now reviews yet
             can_review = true if !has_been_reviewed
           else
