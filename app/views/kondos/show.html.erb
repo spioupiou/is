@@ -54,8 +54,15 @@
     <% if @user.present? && @user[:user_type] == "visitor" %>
       <%= render "booking_form" %>
     <% end %>
+
+    <%# Only shows up for renters who have left a review on their completed bookings %>
+    <% if @reviews %>
+      <%= render "submitted_reviews", reviews: @reviews %>
+    <% end %>
   </div>
 </div>
+
+
 
 <%# Only the provider who created the kondo can see this %>
 <% if @user.present? && @user[:is_kondo_creator?] %>
