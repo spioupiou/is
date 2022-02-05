@@ -64,7 +64,13 @@ class KondosController < ApplicationController
     # :can_book?=>true, :booking_btn_caption=> "Book now!" or "Book again!", :is_kondo_creator?=>false }
 
     @user = analyze_user(@kondo, params[:booking_id])
-    # raise
+
+    if @user[:user_type] == "renter"
+      # past bookings of the renter specific for this kondo
+      past_bookings = Booking.where(kondo: @kondo, user: current_user)
+      # find reviews done by the renter for this specific kondo
+      @reviews = Review.where(booking: past_bookings).order(created_at: :desc)
+    end
   end
 
   def new
