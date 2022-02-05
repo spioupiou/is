@@ -10,13 +10,13 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date])
+    @booking = Booking.new(user_id: current_user.id, kondo_id: params[:kondo_id], booked_date: params[:booking][:booked_date], address: params[:booking][:address])
     authorize @booking
 
     # NOTE: that booking status defaults to "waiting"
     if @booking.save
       @user = analyze_user(@booking.kondo, @booking.id)
-      redirect_to kondo_path(@booking.kondo_id)
+      redirect_to bookings_path(status: "waiting") # Index of all bookings
     else
       @kondo = Kondo.find(params[:kondo_id])
       render "kondos/show"
@@ -34,12 +34,13 @@ class BookingsController < ApplicationController
     @booking.update(booking_params)
     @booking.save
     authorize @booking
+    redirect_to kondo_path(@kondo)
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:booked_date, :status)
+    params.require(:booking).permit(:booked_date, :status, :address)
   end
 
   # TODO: can add as helper method to be more dry

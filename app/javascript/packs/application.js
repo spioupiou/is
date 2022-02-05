@@ -26,6 +26,7 @@ require("channels")
 import Rails from "@rails/ujs";
 import "bootstrap";
 import { sideNav } from "../components/sidebar"
+import { initAutocomplete } from "../plugins/init_autocomplete";
 import { initMapbox } from '../plugins/init_mapbox';
 import { sweetalert2 } from "../plugins/sweet_alert";
 import { autoSubmit } from "../components/formSubmit"
@@ -38,6 +39,7 @@ document.addEventListener('turbolinks:load', () => {
   sweetalert2();
   sideNav();
   initMapbox();
+  initAutocomplete();
 });
   // Call your functions here, e.g:
   // initSelect2();
