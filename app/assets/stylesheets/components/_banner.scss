@@ -6,6 +6,9 @@
   // next line was from: https://stackoverflow.com/a/23935891/6728463
   // truth is we need more lines to make this work with other browsers but we don't care about it right now
   background: -webkit-linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+  h1 {
+    text-align: center;
+  }
 
   img {
     position: absolute;
@@ -13,9 +16,57 @@
     width: 1520px;
     height: 100%;
     z-index: -1;
+    animation-name: multiple-image-crossfade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 16s;
+      
+    &:nth-of-type(1) {
+        animation-delay: 12s;
+      }
+    &:nth-of-type(2) {
+        animation-delay: 8s;
+      }
+    &:nth-of-type(3) {
+        animation-delay: 4s;
+      }
+    &:nth-of-type(4) {
+        animation-delay: 0;
+      }
+    }
+}
+
+@keyframes multiple-image-crossfade {
+  0% {
+    opacity:1;
+    transform: scale(1);
+  }
+  17% {
+    opacity:1;
+  }
+  25% {
+    opacity:0;
+    transform: scale(1.1);
+  }
+  92% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom {
+  0%{
+    transform: scale(1);
   }
 
-  h1 {
-    text-align: center;
+  50%{
+    transform: scale(1.2);
+  }
+
+  100%{
+    transform: scale(1.4);
   }
 }

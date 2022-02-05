@@ -16,7 +16,7 @@ class BookingsController < ApplicationController
     # NOTE: that booking status defaults to "waiting"
     if @booking.save
       @user = analyze_user(@booking.kondo, @booking.id)
-      redirect_to kondo_path(@booking.kondo_id)
+      redirect_to bookings_path(status: "waiting") # Index of all bookings
     else
       @kondo = Kondo.find(params[:kondo_id])
       render "kondos/show"
