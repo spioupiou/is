@@ -1,0 +1,14 @@
+ <nav class="navbar navbar-light bg-transparent justify-content-between" style="position: absolute; z-index:10;">
+ <div class="d-flex justify-content-between" style="width: 95vw">
+    <%= link_to root_path, class:"navbar-brand" do %>
+        <%= image_tag "https://res.cloudinary.com/djlvhfuba/image/upload/v1644023482/development/kondo2-logo_rgf7ky.png", style: "width: 175px; padding: 32px 0 0 32px;" %>
+     <% end %>
+  <div id="open-nav" style= "text-align:center; height: 90px; width: 150px; padding: 32px 32px 0 0;">
+    <% unless current_user.nil? %>
+     <%= cl_image_tag current_user.user_photo %>
+    <% else %>
+      <%= image_tag "https://res.cloudinary.com/djlvhfuba/image/upload/v1643138540/development/user_icon_hqeugo.png", style: "opacity: 0.6" %>
+    <% end %>
+  </div>
+ </div>
+</nav>
