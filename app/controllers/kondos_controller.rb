@@ -55,12 +55,16 @@ class KondosController < ApplicationController
 
     # returns a hash loaded with information
     # user_type: "renter" / "provider" / "visitor"
-    # most_recent_booking: most recent booking(object) of the renter for @kondo, nil if user is visitor or provider
+    # booking:
+    #   from kondo index or home page: most recent booking(object) of the renter for @kondo, nil if user is visitor or provider
+    #   from bookings index: the booking itself
     # can_review?, can_book?, is_kondo_creator?: boolean
     # book_now: "Book again!" / "Book now!"
-    # sample hash for renter that can reivew: { :user_type=>"renter", most_recent_booking: booking-object, :can_review?=>true,
+    # sample hash for renter that can reivew: { :user_type=>"renter", booking: booking-object, :can_review?=>true,
     # :can_book?=>true, :booking_btn_caption=> "Book now!" or "Book again!", :is_kondo_creator?=>false }
-    @user = analyze_user(@kondo)
+    
+    @user = analyze_user(@kondo, params[:booking_id])
+    # raise
   end
 
   def new
@@ -114,21 +118,22 @@ class KondosController < ApplicationController
     params.require(:kondo).permit(:name, :summary, :details, :prefecture, :price, :tag_list)
   end
 
-  def analyze_user(kondo)
+  # TODO: can add as helper method to be more dry
+  def analyze_user(kondo, booking_id)
     if user_signed_in?
       if current_user.renter?
         user_type = "renter"
 
-        # find most recent booking of renter for the kondo in the argument
-        most_recent_booking = Booking.where(user: current_user, kondo: kondo).order(created_at: :asc).first
+        # get_the_right_booking will return either: the most recent booking for a specific kondo / the booking from booking index page
+        booking = get_the_right_booking(kondo, booking_id)
         # find out if the user already made a review for the most recent completed booking of this kondo
-        has_been_reviewed = Review.find_by(booking: most_recent_booking)
+        has_been_reviewed = Review.find_by(booking: booking)
 
         # check if there is a most recent booking
-        if most_recent_booking.present?
+        if booking.present?
 
           # check if most recent booking status is completed
-          if most_recent_booking.completed?
+          if booking.completed?
             # show booking status instead of booking form
             can_book = true
             # booking form button as `Book again!` instead of `Book now!`
@@ -137,8 +142,8 @@ class KondosController < ApplicationController
             # use this flag to show review form if there are now reviews yet
             can_review = true if !has_been_reviewed
           else
-            # this else block means most_recent_booking status is not `completed`
-            if most_recent_booking.declined?
+            # this else block means booking status is not `completed`
+            if booking.declined?
               can_book = true
               # method returns a boolean, true if renter had a completed booking of this kondo before, else false
               book_now = has_completed_a_booking_before
@@ -147,7 +152,7 @@ class KondosController < ApplicationController
             # we show booking status instead of booking form, renter can't book, can_book is false by default
           end
         else
-          # this block means renter has never booked this kondo, most_recent_booking.present? is nil
+          # this block means renter has never booked this kondo, booking.present? is nil
           can_book = true
           book_now = true
         end
@@ -167,12 +172,23 @@ class KondosController < ApplicationController
     {
       # value after || will be used if value on left is nil
       user_type: user_type,
-      most_recent_booking: most_recent_booking,
+      booking: booking,
       can_review?: can_review || false,
       can_book?: can_book || false,
       booking_btn_caption: book_now ? "Book now!" : "Book again!",
       is_kondo_creator?: is_kondo_creator || false
     }
+  end
+
+  def get_the_right_booking(kondo, booking_id)
+    if booking_id.present?
+      # a renter clicks `See Details` from Bookings Index page
+      Booking.find(booking_id)
+    else
+      # a user (renter/visitor/provider) clicks `See Details` from Kondo Index page
+      # find most recent booking of renter for the kondo in the argument
+      Booking.where(user: current_user, kondo: kondo).order(created_at: :asc).first
+    end
   end
 
   def has_completed_a_booking_before

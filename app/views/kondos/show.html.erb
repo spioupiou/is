@@ -24,7 +24,7 @@
           <p><%= @kondo.details %></p>
         </div>
         <%# Only the provider who created the kondo can see this %>
-        <% if @user[:is_kondo_creator?] %>
+        <% if @user.present? && @user[:is_kondo_creator?] %>
           <div class="col-12 d-flex justify-content-between">
             <%= link_to "Edit", edit_kondo_path(@kondo), style: "color: green" %>
             <%= link_to "Delete", kondo_path(@kondo), method: :delete, data: { confirm: "Are you sure?" }, style: "color: red" %>
@@ -36,7 +36,7 @@
 
     <%# Review cheat sheet: https://docs.google.com/spreadsheets/d/1wh7T1UGmmVacvZtotEdq9aZ1-9o-BayaYrR3fnfPRWg/edit#gid=0 %>
     <%# Renters can view a kondo and see booking status / book a kondo / leave a review %>
-    <% if @user[:user_type] == "renter" %>
+    <% if @user.present? && @user[:user_type] == "renter" %>
       <%# renter can book if they have never booked the kondo yet or if previous booking for the kondo is completed or declined %>
       <% if @user[:can_book?] %>
         <%= render "booking_form" %>
@@ -51,13 +51,13 @@
     <% end %>
 
     <%# Visitors can view a kondo and can make an attempt to book a kondo %>
-    <% if @user[:user_type] == "visitor" %>
+    <% if @user.present? && @user[:user_type] == "visitor" %>
       <%= render "booking_form" %>
     <% end %>
   </div>
 </div>
 
 <%# Only the provider who created the kondo can see this %>
-<% if @user[:is_kondo_creator?] %>
+<% if @user.present? && @user[:is_kondo_creator?] %>
   <%= render "bookings_for_provider" %>
 <% end %>
