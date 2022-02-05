@@ -34,6 +34,21 @@
         </ul>
       </div>
     </div>
-
+<!-- REVIEWS -->
+    <div class="row justify-content-center">
+      <div class="col-10 text-center">
+        <h2>Reviews</h2>
+        <% @reviews.each do |review| %>
+          <div class="row justify-content-center">
+            <div class="col-10 text-center">
+              <h4><%= review.booking.kondo.name %></h4>
+              <p><%= review.comment%></p>
+              <p><%= "⭐" * review.rating %> </p>
+              <p> - <%= review.user.first_name %> <%= review.user.last_name %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
