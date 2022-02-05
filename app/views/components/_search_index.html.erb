@@ -1,0 +1,5 @@
+<%= simple_form_for filter, url: path, method: "GET", remote: true do |f| %>
+  <%= f.input :tags, label: "Category",  collection: $categories, as: :check_boxes %>
+  <%= f.input :prefecture, label: "Location", collection: $prefectures %>
+  <%= link_to "Clear Filter", path, class:"btn btn-primary"  %>
+<% end %>
