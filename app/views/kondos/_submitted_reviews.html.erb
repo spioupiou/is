@@ -1,0 +1,12 @@
+<div id="booking-form" class="container">
+  <h3 class="pt-4">Reviews</h3>
+  <ul class="list-group list-group-flush">
+    <% reviews.each do |review| %>
+      <li class="list-group-item">
+        <h5>By <%= review.user.first_name %>, on <%= review.booking.kondo.name %> </h5>
+        <p>Rating: <%= review.rating %></p>
+        <p>Comment: <%= review.comment %> </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
