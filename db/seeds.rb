@@ -95,7 +95,13 @@ name_summary_details.sample(4).each do |detail|
     name: detail[0],
     summary: detail[1],
     details: detail[2],
-    prefecture: %w[Chiba Kyoto Osaka Tokyo].sample,
+    
+    tag_list: detail[0],
+    name: detail[1],
+    summary: detail[2],
+    details: detail[3],
+    prefecture: %w[Chiba Kyoto Osaka Tokyo].sample
+
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
     user_id: [user1, user3, user5, user7].sample.id
@@ -106,9 +112,10 @@ end
 8.times do
   services = name_summary_details.sample
   Kondo.create!(
-    name: services[0],
-    summary: services[1],
-    details: services[2],
+    tag_list: services[0],
+    name: services[1],
+    summary: services[2],
+    details: services[3],
     prefecture: %w[Chiba Kyoto Osaka Tokyo].sample,
     price: ((rand(5..20)) * 1000),
     service_duration: rand(1..7),
