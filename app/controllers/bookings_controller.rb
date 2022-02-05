@@ -31,17 +31,8 @@ class BookingsController < ApplicationController
     @kondo = Kondo.find(params[:kondo_id])
     @booking = Booking.find(params[:id])
     @booking.update(booking_params)
+    @booking.save
     authorize @booking
-    # redirect_to kondo_path(@kondo)
-
-    respond_to do |format|
-      if @booking.update(booking_params)
-        format.js
-        authorize @booking
-      else
-        format.html {render :edit}
-      end
-    end
   end
 
   private

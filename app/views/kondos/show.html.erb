@@ -61,6 +61,7 @@
           <div class="col-lg-4 col-md-6 col-sm-12 bg-white p-4 m-2">
             <p>Renter: <%= User.find(booking.user_id).first_name %></p>
             <p>Booked Date: <%= booking.booked_date %></p>
+
             <%= simple_form_for ([@kondo, booking]), :remote => true do |f| %>
               <div class="d-flex align-items-center">
                 <%= f.input :status, :collection => ['waiting','confirmed','declined','completed'], label: false %>
