@@ -1,0 +1,10 @@
+<div id="booking-form" class="col-lg-8 col-sm-12 p-4 m-2">
+  <h3>Share your experience about this Kondo</h3><br>
+  <%= simple_form_for([@kondo, @user[:booking], @review]) do |f| %>
+    <div class="d-flex flex-column">
+      <%= f.input :rating, as: :integer %>
+      <%= f.input :comment %>
+      <%= f.submit "Submit review", class: "btn btn-primary my-2" %>
+    </div>
+  <% end %>
+</div>
