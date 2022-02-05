@@ -55,8 +55,8 @@
       <%= render "booking_form" %>
     <% end %>
 
-    <%# Only shows up for renters who have left a review on their completed bookings %>
-    <% if @reviews %>
+    <%# Only shows up for renters who have left a review on their completed bookings if there is at least one review for this kondo %>
+    <% if !@reviews.count.zero? %>
       <%= render "submitted_reviews", reviews: @reviews %>
     <% end %>
   </div>
