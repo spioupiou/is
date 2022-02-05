@@ -24,9 +24,10 @@ require("channels")
 
 // External imports
 import "bootstrap";
-import { sideNav } from "../components/sidebar"
+import { sideNav } from "../components/sidebar";
 import { initMapbox } from '../plugins/init_mapbox';
-import { sweetalert2 } from "../plugins/sweet_alert"
+import { sweetalert2 } from "../plugins/sweet_alert";
+import { initSplide } from "../plugins/init_splide";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
@@ -34,6 +35,7 @@ document.addEventListener('turbolinks:load', () => {
   sweetalert2();
   sideNav();
   initMapbox();
+  initSplide();
 });
   // Call your functions here, e.g:
   // initSelect2();
