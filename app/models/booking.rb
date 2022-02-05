@@ -32,8 +32,10 @@ class Booking < ApplicationRecord
   def booked_date_three_days_prior
     return if booked_date.nil?
 
-    if booked_date < Date.today + 3
-      errors.add(:booked_date, "must be booked 3 days in advance")
+    if status != "completed"
+      if booked_date < Date.today + 3
+        errors.add(:booked_date, "must be booked 3 days in advance")
+      end
     end
   end
 

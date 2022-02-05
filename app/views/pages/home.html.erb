@@ -3,26 +3,46 @@
   <%# next two links were the combined solution to make image_tag line work in prod %>
   <%# https://medium.com/@yoanante/assets-webpacker-and-rails-6-why-your-images-and-css-arent-showing-up-heroku-vs-development-de85047148de %>
   <%# https://stackoverflow.com/a/28297444/6728463 %>
-  <%= image_tag(asset_path("/assets/home_banner.png")) %>
+    <%= image_tag(asset_path("/assets/home_banner.png"), id: "banner-image1") %>
+    <%= image_tag(asset_path("/assets/home_banner2.jpg"), id: "banner-image2") %>
+    <%= image_tag(asset_path("/assets/home_banner3.jpg"), id: "banner-image3") %>
+    <%= image_tag(asset_path("/assets/home_banner4.jpg"), id: "banner-image4") %>
   <h1 id="banner-text">Make Your <span style="color:#FF773D">Home</span> a Better Place</h1>
-  <%= render "components/searchBar" %>
+  <%= link_to "Discover", kondos_path, class:"btn btn-warning" %>
 </div>
 
 <div class="container">
-  <h2>Interior Specialists near you</h2>
-    <div class="row justify-content-center">
-      <% @kondos.each do |kondo| %>
-        <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
-          <%= render "components/cardRenter",
-            photo: kondo.user.user_photo,
-            name:  kondo.user.first_name,
-            price: kondo.price,
-            summary: kondo.summary.split(" ").first(10).join(" "),
-            kondo: kondo.name,
-            prefecture: kondo.prefecture,
-            path: kondo_path(kondo)
-          %> 
-        </div>
-      <% end %>
-    </div>
+
+ <div class="row px-xl-5 pt-5 justify-content-between">
+      <div class="col-xl-6 col-sm-12 align-self-center" style="font-size: 1.6rem;">
+        <strong><p>Rent Designers / Keepers</p></strong>
+        <p>Experienced and talented architects and interior designers to design your home for a better life.</p>
+        
+        <p>Project support from design planning to processing of all documentation needed.</p>
+      </div>
+      <div class="col-xl-6 col-sm-12">
+        <%= image_tag "https://res.cloudinary.com/djlvhfuba/image/upload/v1643342608/development/access_rhputi.jpg",size:"500x300", class:"img-fluid" %>
+      </div>
   </div>
+
+  <div class="pt-5">
+    <div class="d-flex justify-content-center py-5">
+      <h2>Interior Specialists near you</h2>
+    </div>
+      <div class="row justify-content-center">
+        <% @kondos.each do |kondo| %>
+          <div class="col-xl-3 col-md-6 col-sm-12 d-flex justify-content-center">
+            <%= render "components/cardRenter",
+              photo: kondo.user.user_photo,
+              name:  kondo.user.first_name,
+              price: kondo.price,
+              summary: kondo.summary.split(" ").first(10).join(" "),
+              kondo: kondo.name,
+              prefecture: kondo.prefecture,
+              path: kondo_path(kondo)
+            %> 
+          </div>
+        <% end %>
+      </div>
+  </div>
+</div>
