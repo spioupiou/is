@@ -23,15 +23,20 @@ require("channels")
 // ----------------------------------------------------
 
 // External imports
+import Rails from "@rails/ujs";
 import "bootstrap";
 import { sideNav } from "../components/sidebar";
 import { initMapbox } from '../plugins/init_mapbox';
 import { sweetalert2 } from "../plugins/sweet_alert";
 import { initSplide } from "../plugins/init_splide";
+import { autoSubmit } from "../components/formSubmit"
+window.Rails = Rails;
+
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
 document.addEventListener('turbolinks:load', () => {
+  autoSubmit();
   sweetalert2();
   sideNav();
   initMapbox();
