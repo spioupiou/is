@@ -16,11 +16,11 @@
       <p><%= @user.prefecture %></p>
 
     <% design_pics = [
-      "design1_jdseci.jpg",
-      "design2_vvoztg.jpg",
-      "design3_rgvexj.jpg",
-      "design4_dmkvom.jpg",
-      "design5_hekxm9.jpg"
+      "design1.jpg",
+      "design2.jpg",
+      "design3.jpg",
+      "design4.jpg",
+      "design5.jpg"
     ] %>
     </div>
 
@@ -29,7 +29,7 @@
       <div class="splide__track">
         <ul class="splide__list">
         <% design_pics.each do |pic|%>
-          <li class="splide__slide resize"><%= cl_image_tag pic, style: "width: 400px; height: 300px; object-fit: cover;" %></li>
+          <li class="splide__slide resize"><%= image_tag pic, style: "width: 400px; height: 300px; object-fit: cover;" %></li>
         <% end %>
         </ul>
       </div>
