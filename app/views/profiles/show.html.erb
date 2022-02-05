@@ -1,8 +1,8 @@
 <div class="container">
   <h1> Profile Page </h1>
   <div class="row justify-content-center py-3" style="background: white;">
-    <div class="col-10 text-center">
-      <%= cl_image_tag @user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"%>
+    <div class="col-10 text-center p-3">
+      <%= cl_image_tag @user.user_photo, style: "width: 200px; height: 200px; object-fit: cover; border-radius: 50%; margin-bottom:16px"%>
       <h2><%= @user.first_name%> <%= @user.last_name %></h2>
 
       <!--- TESTING -->
